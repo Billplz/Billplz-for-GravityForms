@@ -25,6 +25,9 @@ Consider a donation to developer : Maybank 15738-01156-07 (Wan Zulkarnain Bin Wa
 
 == Changelog ==
 
+= 3.2 =
+* Plugin are re-build from scratch
+
 = 3.1 =
 * BUG: It is double checked for transaction at Billplz using ID
 * Going Open Source
@@ -77,7 +80,7 @@ If you get infinite loop or JSON-like error:
 2. Contact us at sales@wanzul-hosting.com
 
 == Links ==
-[Wanzul Hosting](http://wanzul-hosting.com/) is the most reliable, cheap, recommended by the most web master around the world.
+[Follow us on Facebook](http://www.facebook.com/billplz) for the latest update and information about this plugin.
 
 == Updates ==
 Updates will provided through WordPress Update!
