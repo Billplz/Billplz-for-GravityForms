@@ -9,7 +9,7 @@ class GFBillplz extends GFPaymentAddOn {
 	protected $_version = GF_BILLPLZ_VERSION;
 	protected $_min_gravityforms_version = '2.0.3';
 	protected $_slug = 'billplzforgravityforms';
-	protected $_path = 'billplzforgravityforms/billplz.php';
+	protected $_path = 'billplz-for-gravityforms/billplz.php';
 	protected $_full_path = __FILE__;
 	protected $_url = 'http://www.facebook.com/billplzplugin';
 	protected $_title = 'Billplz for GravityForms';
