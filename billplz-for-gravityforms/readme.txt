@@ -18,7 +18,7 @@ Consider a donation to developer : Maybank 15738-01156-07 (Wan Zulkarnain Bin Wa
 [Make Donation](https://www.billplz.com/form/sw2co7ig8/) to developer now.
 
 == Upgrade Notice == 
-* None
+* Version 3.2 are NOT BACKWARDS COMPATIBLE. YOU HAVE TO RESET EVERYTHING AFTER INSTALLING THIS UPDATES!
 
 == Screenshots ==
 * Will available soon
@@ -27,6 +27,9 @@ Consider a donation to developer : Maybank 15738-01156-07 (Wan Zulkarnain Bin Wa
 
 = 3.2 =
 * Plugin are re-build from scratch
+* Improvement: Non-related option are removed
+* Improvement: Build based on PayPal Standard Addon Version 2.6
+
 
 = 3.1 =
 * BUG: It is double checked for transaction at Billplz using ID
