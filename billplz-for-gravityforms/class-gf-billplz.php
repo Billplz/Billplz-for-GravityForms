@@ -779,8 +779,10 @@ class GFBillplz extends GFPaymentAddOn {
 		$email	 = $entry[$bEmail];
 		
 		$ref_1_label = $feed['meta']['reference_1_label'];
+		$ref_1_label = $ref_1_label!='' ? substr($ref_1_label, 0, 119) : ''; // Limit to 120 Character
 		$bref_1	 = $feed['meta']['billingInformation_reference_1']; //Integer: Where the Array Index of the $entry
 		$ref_1	 = $entry[$bref_1];
+		$ref_1	 = $ref_1!='' ? substr($ref_1, 0, 19): '';
 		$sPhone	 = $feed['meta']['billingInformation_bill_mobile'];//Integer: Where the Array Index of the $entry
 		$phone	 = $entry[$sPhone];
 		
