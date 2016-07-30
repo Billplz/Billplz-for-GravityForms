@@ -1,7 +1,7 @@
 === Billplz for GravityForms ===
 Contributors: wanzulnet
 Tags: billplz,wanzul,paymentgateway,malaysia
-Tested up to: 4.5
+Tested up to: 4.6
 Stable tag: 3.1
 Donate link: https://www.billplz.com/form/sw2co7ig8/
 Requires at least: 4.3
