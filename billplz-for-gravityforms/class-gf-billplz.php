@@ -592,12 +592,6 @@ class GFBillplz extends GFPaymentAddOn {
 
 	public function option_choices() {
 		return false;
-		//$option_choices = array(
-		//	array( 'label' => __( 'Do not prompt buyer to include a shipping address.', 'billplzforgravityforms' ), 'name' => 'disableShipping', 'value' => '' ),
-		//	array( 'label' => __( 'Do not prompt buyer to include a note with payment.', 'billplzforgravityforms' ), 'name' => 'disableNote', 'value' => '' ),
-		//);
-
-		//return $option_choices;
 	}
 
 	public function save_feed_settings( $feed_id, $form_id, $settings ) {
