@@ -2075,7 +2075,7 @@ class GFBillplz extends GFPaymentAddOn {
 
 		if ( rgars( $feed, 'meta/delayNotification' ) ) {
 			//sending delayed notifications
-			$notifications = rgars( $feed, 'meta/selectedNotifications' );
+			$notifications = $this->get_notifications_to_send( $form, $feed );
 			GFCommon::send_notifications( $notifications, $form, $entry, true, 'form_submission' );
 		}
 
@@ -2084,6 +2084,29 @@ class GFBillplz extends GFPaymentAddOn {
 			$this->log_debug( __METHOD__ . '(): Executing functions hooked to gform_billplz_fulfillment.' );
 		}
 
+	}
+	
+	/**
+	 * Retrieve the IDs of the notifications to be sent.
+	 *
+	 * @param array $form The form which created the entry being processed.
+	 * @param array $feed The feed which processed the entry.
+	 *
+	 * @return array
+	 */
+	public function get_notifications_to_send( $form, $feed ) {
+		$notifications_to_send  = array();
+		$selected_notifications = rgars( $feed, 'meta/selectedNotifications' );
+		if ( is_array( $selected_notifications ) ) {
+			// Make sure that the notifications being sent belong to the form submission event, just in case the notification event was changed after the feed was configured.
+			foreach ( $form['notifications'] as $notification ) {
+				if ( rgar( $notification, 'event' ) != 'form_submission' || ! in_array( $notification['id'], $selected_notifications ) ) {
+					continue;
+				}
+				$notifications_to_send[] = $notification['id'];
+			}
+		}
+		return $notifications_to_send;
 	}
 
 	private function is_valid_initial_payment_amount( $entry_id, $amount_paid ) {
@@ -2121,11 +2144,26 @@ class GFBillplz extends GFPaymentAddOn {
 	 * @return bool
 	 */
 	public function payment_details_editing_disabled( $entry, $action = 'edit' ) {
+		if ( ! $this->is_payment_gateway( $entry['id'] ) ) {
+			// Entry was not processed by this add-on, don't allow editing.
+			return true;
+		}
+		
 		$payment_status = rgar( $entry, 'payment_status' );
-		$form_action    = strtolower( rgpost( 'save' ) );
-
-		return ! $this->is_payment_gateway( $entry['id'] ) || $form_action <> $action || $payment_status == 'Approved' || $payment_status == 'Paid' || rgar( $entry, 'transaction_type' ) == 2;
-
+		if ( $payment_status == 'Approved' || $payment_status == 'Paid' || rgar( $entry, 'transaction_type' ) == 2 ) {
+			// Editing not allowed for this entries transaction type or payment status.
+			return true;
+		}
+		if ( $action == 'edit' && rgpost( 'screen_mode' ) == 'edit' ) {
+			// Editing is allowed for this entry.
+			return false;
+		}
+		if ( $action == 'update' && rgpost( 'screen_mode' ) == 'view' && rgpost( 'action' ) == 'update' ) {
+			// Updating the payment details for this entry is allowed.
+			return false;
+		}
+		// In all other cases editing is not allowed.
+		return true;
 	}
 
 	/**
