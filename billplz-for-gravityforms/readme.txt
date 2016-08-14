@@ -2,7 +2,7 @@
 Contributors: wanzulnet
 Tags: billplz,wanzul,paymentgateway,malaysia
 Tested up to: 4.6
-Stable tag: 3.1
+Stable tag: 3.3
 Donate link: https://www.billplz.com/form/sw2co7ig8/
 Requires at least: 4.3
 License: GPLv2 or later
@@ -18,12 +18,16 @@ Consider a donation to developer : Maybank 15738-01156-07 (Wan Zulkarnain Bin Wa
 [Make Donation](https://www.billplz.com/form/sw2co7ig8/) to developer now.
 
 == Upgrade Notice == 
-* Version 3.2 are NOT BACKWARDS COMPATIBLE. YOU HAVE TO RESET EVERYTHING AFTER INSTALLING THIS UPDATES!
+* IF YOU ARE UPGRADING FROM VERSION 3.1 AND BELOW, YOU HAVE TO RE-SET EVERYTHING AFTER INSTALLING THIS UPDATES!
 
 == Screenshots ==
 * Will available soon
 
 == Changelog ==
+
+= 3.3 =
+* Based on PayPal Standard Addon 2.7
+* NEW: Auto Submit Option
 
 = 3.2 =
 * Plugin are re-build from scratch
