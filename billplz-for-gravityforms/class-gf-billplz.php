@@ -811,9 +811,10 @@ class GFBillplz extends GFPaymentAddOn {
 		
 		$sSms   = $feed['meta']['billplzSMS'];
 		$sEmailNotify = $feed['meta']['billplzEmail'];
-		$deliver = $sSms==1 AND $sEmailNotify==1 ? true : false ; 
-		$email	= (($sSms==0 AND $sEmailNotify==1) OR (!$deliver AND $sEmailNotify==0)) ? $email : '';
-		$phone	= (($sSms==1 AND $sEmailNotify==0) OR (!$deliver AND $sSms==0)) ? preg_replace("/[^0-9]/", "", $phone) : '';
+		$deliver = $sSms==1 OR $sEmailNotify==1 ? true : false ; 
+		
+		$email	= (($sSms==0 AND $sEmailNotify==1) OR ($deliver AND $sEmailNotify==1)) ? $email : !$deliver ? $email : '';
+		$phone	= (($sSms==1 AND $sEmailNotify==0) OR ($deliver AND $sSms==1)) ? preg_replace("/[^0-9]/", "", $phone) : !$deliver ? preg_replace("/[^0-9]/", "", $phone) : '';
 		$billplz_data = array(
 			'amount' => rgar($submission_data, 'payment_amount') * 100,
 			'name' => $entry[$fName] . " " . $entry[$sName],
