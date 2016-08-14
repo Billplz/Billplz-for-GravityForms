@@ -159,6 +159,20 @@ class GFBillplz extends GFPaymentAddOn {
 				'default_value' => 'production',
 				'tooltip'       => '<h6>' . esc_html__( 'Mode', 'billplzforgravityforms' ) . '</h6>' . esc_html__( 'Select Production for www.billplz.com API Key. Select Test for billplz-staging.herokuapp.com.', 'billplzforgravityforms' )
 			),
+			array(
+				'name'          => 'autoSubmit',
+				'label'         => esc_html__( 'Skip Billplz', 'billplzforgravityforms' ),
+				'type'          => 'radio',
+				'choices'       => array(
+					array( 'id' => 'auto_submit_none', 'label' => esc_html__( 'None', 'billplzforgravityforms' ), 'value' => 'billplz' ),
+					array( 'id' => 'auto_submit_fpx', 'label' => esc_html__( 'FPX', 'billplzforgravityforms' ), 'value' => 'fpx' ),
+					array( 'id' => 'auto_submit_paypal', 'label' => esc_html__( 'PayPal', 'billplzforgravityforms' ), 'value' => 'paypal' ),
+				),
+
+				'horizontal'    => true,
+				'default_value' => 'billplz',
+				'tooltip'       => '<h6>' . esc_html__( 'Skip Billplz', 'billplzforgravityforms' ) . '</h6>' . esc_html__( 'Choose where to auto submit to payment and skipping the Billplz Page.', 'billplzforgravityforms' )
+			),
 		);
 
 		$default_settings = parent::add_field_after( 'feedName', $fields, $default_settings );
@@ -683,7 +697,7 @@ class GFBillplz extends GFPaymentAddOn {
 		//Getting Url (Production or Sandbox)
 		$url = $feed['meta']['mode'] == 'production' ? $this->production_url : $this->sandbox_url;
 		$url.= 'bills/';
-
+		$autoSubmit = $feed['meta']['autoSubmit'];
 		//$invoice_id = apply_filters( 'gform_billplz_invoice', '', $form, $entry );
 
 		//$invoice = empty( $invoice_id ) ? '' : "&invoice={$invoice_id}";
@@ -841,7 +855,7 @@ class GFBillplz extends GFPaymentAddOn {
 		else {
 			$url = $arr['url'];
 		}
-
+		$url.='?auto_submit='.$autoSubmit;
 		$this->log_debug( __METHOD__ . "(): Sending to Billplz: {$url}" );
 		//troubleshooting purpose
 		//$result = var_export($billplz_data, true); 
