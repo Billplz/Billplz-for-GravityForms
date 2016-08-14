@@ -3,15 +3,15 @@
 Plugin Name: Billplz for GravityForms
 Plugin URI: http://www.facebook.com/billplzplugin
 Description: Integrates Gravity Forms with Billplz Payments, enabling end users to purchase goods and services through Gravity Forms.
-Version: 3.2
-Author: Wan Zulkarnain
+Version: 3.3
+Author: Wanzul Hosting Enterprise
 Author URI: http://www.wanzul-hosting.com
 Text Domain: billplzforgravityforms
 Domain Path: /languages
 */
 
 
-define( 'GF_BILLPLZ_VERSION', '3.2' );
+define( 'GF_BILLPLZ_VERSION', '3.3' );
 
 add_action( 'gform_loaded', array( 'GF_Billplz_Bootstrap', 'load' ), 5 );
 
