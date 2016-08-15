@@ -738,7 +738,7 @@ class GFBillplz extends GFPaymentAddOn {
 
 		//URL that will listen to notifications from Billplz
 		//$ipn_url = get_bloginfo( 'url' ) . '/?page=gf_billplz_ipn'  . '&feedid='.$feed['id'].'&formid='.$form['id'].$return_url;
-		$ipn_url = home_url('/?page=gf_billplz_ipn')  . '&feedid='.$feed['id'].'&formid='.$form['id'].'$entryid='.$entry['id'].$return_url;
+		$ipn_url = home_url('/?page=gf_billplz_ipn')  . '&feedid='.$feed['id'].'&formid='.$form['id'].'&entryid='.$entry['id'].$return_url;
 
 		$api_key = urlencode( trim( $feed['meta']['billplzAPIKey'] ) );
 		$collection_id = urlencode( trim( $feed['meta']['billplzCollectionID'] ) );
