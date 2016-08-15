@@ -738,7 +738,7 @@ class GFBillplz extends GFPaymentAddOn {
 
 		//URL that will listen to notifications from Billplz
 		//$ipn_url = get_bloginfo( 'url' ) . '/?page=gf_billplz_ipn'  . '&feedid='.$feed['id'].'&formid='.$form['id'].$return_url;
-		$ipn_url = home_url('/?page=gf_billplz_ipn')  . '&feedid='.$feed['id'].'&formid='.$form['id'].$return_url;
+		$ipn_url = home_url('/?page=gf_billplz_ipn')  . '&feedid='.$feed['id'].'&formid='.$form['id'].'$entryid='.$entry['id'].$return_url;
 
 		$api_key = urlencode( trim( $feed['meta']['billplzAPIKey'] ) );
 		$collection_id = urlencode( trim( $feed['meta']['billplzCollectionID'] ) );
@@ -1467,11 +1467,14 @@ class GFBillplz extends GFPaymentAddOn {
 		
 		$id = isset($_POST['id']) ? $_POST['id'] : $_GET['billplz']['id'];
 		
-		$FormID = GFAPI::get_feeds($_GET['feedid'], $_GET['formid']);
+		//$FormID = GFAPI::get_feeds($_GET['feedid'], $_GET['formid']);
+		$entryid = htmlspecialchars($_GET['entryid']);
+		$entry = $this->get_entry( $entryid );
+		$feed = $this->get_payment_feed( $entry );
 		
-		$host = $FormID['0']['meta']['mode'] == 'production' ? $this->production_url : $this->sandbox_url;
-		$api_key = $FormID['0']['meta']['billplzAPIKey'];
-		$collection_id = $FormID['0']['meta']['billplzCollectionID'];
+		$host = $feed['meta']['mode'] == 'production' ? $this->production_url : $this->sandbox_url;
+		$api_key = $feed['meta']['billplzAPIKey'];
+		$collection_id = $feed['meta']['billplzCollectionID'];
 		
 		$host    = $host .'bills/'. $id;
 		$process = curl_init($host);
