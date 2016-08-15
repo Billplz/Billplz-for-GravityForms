@@ -1952,7 +1952,7 @@ class GFBillplz extends GFPaymentAddOn {
 						<p><?php esc_html_e( 'Billplz Feeds are now accessed via the Billplz sub-menu within the Form Settings for the Form you would like to integrate Billplz with.', 'billplzforgravityforms' ) ?></p>
 					</div>
 					<div class="col-2 last-feature">
-						<img src="/wp-content/plugins/billplz-for-gravityforms/images/billplzdonate.png">
+						<img src="<?php echo home_url('');?>/wp-content/plugins/billplz-for-gravityforms/images/billplzdonate.png">
 					</div>
 				</div>
 
