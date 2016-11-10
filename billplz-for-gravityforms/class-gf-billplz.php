@@ -1330,6 +1330,7 @@ class GFBillplz extends GFPaymentAddOn {
 			if ($this->billplzSignal['paid']){
 				$return_url = $_GET['returnSuccess'].'&rm=2';
 				header("Location: " . $return_url);
+				exit;
 			}
 			elseif (!$this->billplzSignal['paid']){
 				if ($feed['meta']['cancelUrl'] == ''){
@@ -1340,6 +1341,7 @@ class GFBillplz extends GFPaymentAddOn {
 				}
 				//mail("wanzulkarnain69@gmail.com","feed meta", var_export($feed,true));
 				header("Location: " . $cancelURL);
+				exit;
 			}
 			return false;
 		}
