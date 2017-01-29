@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Billplz for GravityForms
-Plugin URI: http://www.facebook.com/billplzplugin
+Plugin URI: https://wordpress.org/plugins-wp/billplz-for-gravityforms/
 Description: Integrates Gravity Forms with Billplz Payments, enabling end users to purchase goods and services through Gravity Forms.
 Version: 3.3
 Author: Wanzul Hosting Enterprise
