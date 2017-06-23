@@ -39,13 +39,29 @@ class BillplzRequiredSettings {
                 'name' => 'bill_description',
                 'tooltip' => '<h6>' . esc_html__('Billplz Bills Description', 'gravityformsbillplz') . '</h6>' . esc_html__('Enter your fixed description here. It will add concatenated with variable description.', 'gravityformsbillplz'),
                 'class' => 'medium merge-tag-support mt-position-right',
-                'required' => true,
+                'required' => false,
+            ),
+            array(
+                'label' => esc_html__('Reference 1 Label', 'gravityformsbillplz'),
+                'type' => 'text',
+                'name' => 'reference_1_label',
+                'tooltip' => '<h6>' . esc_html__('Billplz Reference 1 Label', 'gravityformsbillplz') . '</h6>' . esc_html__('Enter your desired Reference 1 Label here.', 'gravityformsbillplz'),
+                'class' => 'medium',
+                'required' => false,
             ),
             array(
                 'label' => esc_html__('Reference 2 Label', 'gravityformsbillplz'),
                 'type' => 'text',
                 'name' => 'reference_2_label',
                 'tooltip' => '<h6>' . esc_html__('Billplz Reference 2 Label', 'gravityformsbillplz') . '</h6>' . esc_html__('Enter your desired Reference 2 Label here.', 'gravityformsbillplz'),
+                'class' => 'medium',
+                'required' => false,
+            ),
+            array(
+                'label' => esc_html__('Reference 1', 'gravityformsbillplz'),
+                'type' => 'text',
+                'name' => 'reference_1',
+                'tooltip' => '<h6>' . esc_html__('Billplz Reference Content', 'gravityformsbillplz') . '</h6>' . esc_html__('Enter your desired Reference 1 content here. It will add concatenated with variable reference 1', 'gravityformsbillplz'),
                 'class' => 'medium',
                 'required' => false,
             ),
@@ -90,6 +106,7 @@ class BillplzRequiredSettings {
         $billing_fields = $billing_info['field_map'];
 
         $add_name = true;
+        $add_reference_1 = true;
         $add_reference_2 = true;
         $add_bills_desc = true;
         $add_phone = true;
@@ -107,6 +124,8 @@ class BillplzRequiredSettings {
             //add first/last name if it does not already exist in billing fields
             if ($mapping['name'] == 'name') {
                 $add_name = false;
+            } else if ($mapping['name'] == 'reference_1') {
+                $add_reference_1 = false;
             } else if ($mapping['name'] == 'reference_2') {
                 $add_reference_2 = false;
             } else if ($mapping['name'] == 'bill_desc') {
@@ -162,7 +181,10 @@ class BillplzRequiredSettings {
          */
 
         if ($add_reference_2) {
-            array_unshift($billing_info['field_map'], array('name' => 'reference_2', 'label' => esc_html__('Reference 2', 'gravityformsbillplz'), 'required' => true));
+            array_unshift($billing_info['field_map'], array('name' => 'reference_2', 'label' => esc_html__('Reference 2', 'gravityformsbillplz'), 'required' => false));
+        }
+        if ($add_reference_1) {
+            array_unshift($billing_info['field_map'], array('name' => 'reference_1', 'label' => esc_html__('Reference 1', 'gravityformsbillplz'), 'required' => false));
         }
         if ($add_bills_desc) {
             array_unshift($billing_info['field_map'], array('name' => 'bill_desc', 'label' => esc_html__('Bill Description', 'gravityformsbillplz'), 'required' => false));
@@ -171,12 +193,12 @@ class BillplzRequiredSettings {
             array_unshift($billing_info['field_map'], array('name' => 'bill_mobile', 'label' => esc_html__('Mobile Phone Number', 'gravityformsbillplz'), 'required' => false));
         }
         if ($add_email) {
-            array_unshift($billing_info['field_map'], array('name' => 'email', 'label' => esc_html__('Email', 'gravityformsbillplz'), 'required' => true));
+            array_unshift($billing_info['field_map'], array('name' => 'email', 'label' => esc_html__('Email', 'gravityformsbillplz'), 'required' => false));
         }
         if ($add_name) {
             array_unshift($billing_info['field_map'], array('name' => 'name', 'label' => esc_html__('Name', 'gravityformsbillplz'), 'required' => true));
         }
-        
+
         return $billing_info;
     }
 

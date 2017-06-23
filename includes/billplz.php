@@ -372,6 +372,39 @@ if (!class_exists('Billplz')) {
             return $collection_id;
         }
 
+        public function get_transaction_index($bill_id, $page = '1', $status = 'completed', $mode = '') {
+            /*
+             * Identify mode if not supplied
+             */
+
+            if (empty($mode)) {
+                $mode = $this->check_api_key();
+            }
+
+            $this->obj->setAction('GETTRANSACTIONINDEX');
+
+            $this->obj->setURL($mode, $bill_id);
+            $array = [
+                'page' => $page,
+                'status' => $status,
+            ];
+            $data = $this->obj->curl_action($array);
+
+            return $data;
+        }
+
+        public function get_bill_paid_time($bill_id, $mode = '') {
+            $array = $this->get_transaction_index($bill_id, $mode);
+
+            foreach ($array['transactions'] as $transactions) {
+                if ($transactions['status'] === 'completed') {
+                    return strtotime($transactions['completed_at']) + (60 * 60 * 8);
+                }
+            }
+
+            return '';
+        }
+
         public function create_bill($checkCollection = false, $mode = '') {
             /*
              * Identify mode if not supplied
@@ -515,6 +548,8 @@ if (!class_exists('Billplz')) {
                 $this->url .= 'bills/';
             } else if ($this->action == 'GETCOLLECTIONINDEX') {
                 $this->url .= 'collections';
+            } else if ($this->action == 'GETTRANSACTIONINDEX') {
+                $this->url .= 'bills/' . $id . '/transactions';
             } else { //COLLECTIONS or CHECKCOLLECTION
                 $this->url .= 'collections/';
             }
@@ -523,7 +558,7 @@ if (!class_exists('Billplz')) {
 
         public function curl_action($data = '') {
 
-            if ($this->action == 'GETCOLLECTIONINDEX') {
+            if ($this->action == 'GETCOLLECTIONINDEX' || $this->action == 'GETTRANSACTIONINDEX') {
                 $this->url .= '?page=' . $data['page'] . '&status=' . $data['status'];
             } else if ($this->action == 'CHECKCOLLECTION') {
                 $this->url .= $data['id'];
@@ -545,7 +580,7 @@ if (!class_exists('Billplz')) {
 
             if ($this->action == 'DELETE') {
                 $reqType = 'DELETE';
-            } else if ($this->action == 'CHECK' || $this->action == 'GETCOLLECTIONINDEX' || $this->action == 'CHECKCOLLECTION') {
+            } else if ($this->action == 'CHECK' || $this->action == 'GETCOLLECTIONINDEX' || $this->action == 'CHECKCOLLECTION' || $this->action == 'GETTRANSACTIONINDEX') {
                 $reqType = 'GET';
             } else {
                 $reqType = 'POST';

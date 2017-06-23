@@ -351,7 +351,11 @@ class GFBillplz extends GFPaymentAddOn {
         }
 
         $_SESSION['success_redirect' . $entry_id] = $this->return_url($form['id'], $entry['id']);
-        $_SESSION['initial_payment' . $entry_id] = rgar($submission_data, 'payment_amount');
+
+        /*
+         * Save to db for future matching
+         */
+        update_option('billplz_gf_amount_' . $entry_id, rgar($submission_data, 'payment_amount'), false);
 
         /*
          * Get to know where is variable inside $entry
@@ -360,6 +364,7 @@ class GFBillplz extends GFPaymentAddOn {
         $int_name = $feed['meta']['billingInformation_name'];
         $int_email = $feed['meta']['billingInformation_email'];
         $int_mobile = $feed['meta']['billingInformation_bill_mobile'];
+        $int_reference_1 = $feed['meta']['billingInformation_reference_1'];
         $int_reference_2 = $feed['meta']['billingInformation_reference_2'];
         $int_bill_desc = $feed['meta']['billingInformation_bill_desc'];
 
@@ -369,13 +374,15 @@ class GFBillplz extends GFPaymentAddOn {
          */
 
         //URL that will listen to notifications from Billplz
-        $ipn_url = get_bloginfo('url') . '/?page=gf_billplz_ipn&entry_id=' . $entry_id;
+        $ipn_url = get_bloginfo('url') . '/?page=gf_billplz_ipn';
 
         $api_key = trim($feed['meta']['api_key']);
         $collection_id = trim($feed['meta']['collection_id']);
         $deliver = trim($feed['meta']['payment_reminder']);
+        $reference_1_label = trim($feed['meta']['reference_1_label']);
         $reference_2_label = trim($feed['meta']['reference_2_label']);
         $description = $feed['meta']['bill_description'] . $entry[$int_bill_desc];
+        $reference_1 = trim($feed['meta']['reference_1'] . $entry[$int_reference_1]);
         $reference_2 = trim($feed['meta']['reference_2'] . $entry[$int_reference_2]);
         $name = trim($entry[$int_name]);
         $amount = rgar($submission_data, 'payment_amount');
@@ -398,13 +405,19 @@ class GFBillplz extends GFPaymentAddOn {
                 ->setMobile($mobile)
                 ->setName($name)
                 ->setPassbackURL($ipn_url, $ipn_url)
-                ->setReference_1($entry_id)
-                ->setReference_1_Label('ID')
+                ->setReference_1($reference_1)
+                ->setReference_1_Label($reference_1_label)
                 ->setReference_2($reference_2)
                 ->setReference_2_Label($reference_2_label)
                 ->create_bill(true);
 
         $url = $billplz->getURL();
+        $id = $billplz->getID();
+
+        /*
+         * Save to db for callback & redirect use
+         */
+        update_option('billplz_gf_' . $id, $entry_id, false);
 
         $this->log_debug(__METHOD__ . "(): Sending to Billplz: {$url}");
 
@@ -440,6 +453,13 @@ class GFBillplz extends GFPaymentAddOn {
          * @param string $query	The query string portion of the URL.
          */
         return apply_filters('gform_billplz_return_url', $url, $form_id, $lead_id, $query);
+    }
+    
+    /*
+     * This method needs to be provided to give an ability for the user to uninstall the plugin
+     */
+    public function plugin_settings_fields() {
+        
     }
 
     public static function maybe_thankyou_page() {
@@ -524,7 +544,9 @@ class GFBillplz extends GFPaymentAddOn {
 
         if (isset($_GET['billplz']['x_signature'])) {
             if ($action['type'] === 'complete_payment') {
-                header('Location: ' . $_SESSION['success_redirect' . $action['entry_id']]);
+                $url = $_SESSION['success_redirect' . $action['entry_id']];
+                unset($_SESSION['success_redirect' . $action['entry_id']]);
+                header('Location: ' . $url);
             } else {
 
                 header('Location: ' . $action['cancel_url']);
@@ -538,8 +560,13 @@ class GFBillplz extends GFPaymentAddOn {
     }
 
     private function process_bill() {
+        $bill_id = htmlspecialchars(isset($_GET['billplz']['id']) ? $_GET['billplz']['id'] : $_POST['id']);
 
-        $entry_id = isset($_GET['entry_id']) ? $_GET['entry_id'] : exit();
+        $entry_id = get_option('billplz_gf_' . $bill_id, false);
+
+        if (!$entry_id) {
+            exit;
+        }
 
         $entry = GFAPI::get_entry($entry_id);
 
@@ -573,11 +600,9 @@ class GFBillplz extends GFPaymentAddOn {
 
         $billplz = new Billplz($api_key);
         $moreData = $billplz->check_bill($bill_id);
-        $amount = number_format($moreData['amount'] / 100, 2);
+        $paid_time = $billplz->get_bill_paid_time($bill_id);
 
-        if ($entry_id !== $moreData['reference_1']) {
-            exit('Invalid Request');
-        }
+        $amount = number_format($moreData['amount'] / 100, 2);
 
         //Ignore IPN messages from forms that are no longer configured with the Billplz add-on
         if (!$feed || !rgar($feed, 'is_active')) {
@@ -606,10 +631,9 @@ class GFBillplz extends GFPaymentAddOn {
             $action['cancel_url'] = $feed['meta']['cancelUrl'];
         }
 
-
         if ($data['paid']) {
             $action['type'] = 'complete_payment';
-            $action['payment_date'] = gmdate('d-m-Y H:i:s');
+            $action['payment_date'] = gmdate('d-m-Y H:i:s', $paid_time);
             $action['payment_method'] = 'Billplz';
             $action['ready_to_fulfill'] = !$entry['is_fulfilled'] ? true : false;
         } else {
@@ -625,7 +649,14 @@ class GFBillplz extends GFPaymentAddOn {
     }
 
     private function is_valid_initial_payment_amount($entry_id, $amount_paid) {
-        $raw_amount_sent = (int) $_SESSION['initial_payment' . $entry_id];
+
+        $amount = get_option('billplz_gf_amount_' . $entry_id, false);
+
+        if (!$amount) {
+            exit;
+        }
+
+        $raw_amount_sent = (int) $amount;
         $amount_sent = number_format($raw_amount_sent, 2);
 
         if ($amount_sent !== $amount_paid) {
@@ -995,7 +1026,8 @@ class GFBillplz extends GFPaymentAddOn {
 
     public function uninstall() {
         parent::uninstall();
-        delete_option('gform_billplz_sslverify');
+        global $wpdb;
+        $wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE 'billplz_gf_%'");
     }
 
     //------ FOR BACKWARDS COMPATIBILITY ----------------------//

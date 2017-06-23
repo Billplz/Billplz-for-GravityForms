@@ -12,7 +12,6 @@
  */
 // Add settings link on plugin page
 
-
 define( 'GF_BILLPLZ_VERSION', '3.4' );
 
 add_action( 'gform_loaded', array( 'GF_Billplz_Bootstrap', 'load' ), 5 );
