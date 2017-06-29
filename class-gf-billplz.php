@@ -547,9 +547,11 @@ class GFBillplz extends GFPaymentAddOn {
                 $url = $_SESSION['success_redirect' . $action['entry_id']];
                 unset($_SESSION['success_redirect' . $action['entry_id']]);
                 header('Location: ' . $url);
+                exit;
             } else {
 
                 header('Location: ' . $action['cancel_url']);
+                exit;
             }
         }
         if (rgempty('entry_id', $action)) {
