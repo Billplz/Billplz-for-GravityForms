@@ -3,7 +3,8 @@ add_action('wp', array('GFBillplz', 'maybe_thankyou_page'), 5);
 
 GFForms::include_payment_addon_framework();
 
-class GFBillplz extends GFPaymentAddOn {
+class GFBillplz extends GFPaymentAddOn
+{
 
     protected $_version = GF_BILLPLZ_VERSION;
     protected $_min_gravityforms_version = '1.9.3';
@@ -24,7 +25,8 @@ class GFBillplz extends GFPaymentAddOn {
     protected $_enable_rg_autoupgrade = false;
     private static $_instance = null;
 
-    public static function get_instance() {
+    public static function get_instance()
+    {
         if (self::$_instance == null) {
             self::$_instance = new GFBillplz();
         }
@@ -32,24 +34,27 @@ class GFBillplz extends GFPaymentAddOn {
         return self::$_instance;
     }
 
-    private function __clone() {
+    private function __clone()
+    {
         
     }
-
     /* do nothing */
 
-    public function init_frontend() {
+    public function init_frontend()
+    {
         parent::init_frontend();
 
         add_filter('gform_disable_post_creation', array($this, 'delay_post'), 10, 3);
         add_filter('gform_disable_notification', array($this, 'delay_notification'), 10, 4);
     }
 
-    public function feed_list_no_item_message() {
+    public function feed_list_no_item_message()
+    {
         return parent::feed_list_no_item_message();
     }
 
-    public function feed_settings_fields() {
+    public function feed_settings_fields()
+    {
         $default_settings = parent::feed_settings_fields();
 
         /*
@@ -150,11 +155,13 @@ class GFBillplz extends GFPaymentAddOn {
         return apply_filters('gform_billplz_feed_settings_fields', $default_settings, $form);
     }
 
-    public function field_map_title() {
+    public function field_map_title()
+    {
         return esc_html__('Billplz Field', 'gravityformsbillplz');
     }
 
-    public function settings_options($field, $echo = true) {
+    public function settings_options($field, $echo = true)
+    {
         $html = $this->settings_checkbox($field, false);
 
         if ($echo) {
@@ -164,13 +171,16 @@ class GFBillplz extends GFPaymentAddOn {
         return $html;
     }
 
-    public function settings_custom($field, $echo = true) {
+    public function settings_custom($field, $echo = true)
+    {
 
         ob_start();
+
         ?>
         <div id='gf_billplz_custom_settings'>
             <?php
             do_action('gform_billplz_add_option_group', $this->get_current_feed(), $this->get_current_form());
+
             ?>
         </div>
 
@@ -190,7 +200,8 @@ class GFBillplz extends GFPaymentAddOn {
         return $html;
     }
 
-    public function settings_notifications($field, $echo = true) {
+    public function settings_notifications($field, $echo = true)
+    {
         $checkboxes = array(
             'name' => 'delay_notification',
             'type' => 'checkboxes',
@@ -210,6 +221,7 @@ class GFBillplz extends GFPaymentAddOn {
         $form = $this->get_current_form();
         $has_delayed_notifications = $this->get_setting('delayNotification');
         ob_start();
+
         ?>
         <ul id="gf_billplz_notification_container" style="padding-left:20px; margin-top:10px; <?php echo $has_delayed_notifications ? '' : 'display:none;' ?>">
             <?php
@@ -224,6 +236,7 @@ class GFBillplz extends GFPaymentAddOn {
                 $notifications = GFCommon::get_notifications('form_submission', $form);
 
                 foreach ($notifications as $notification) {
+
                     ?>
                     <li class="gf_billplz_notification">
                         <input type="checkbox" class="notification_checkbox" value="<?php echo $notification['id'] ?>" onclick="SaveNotifications();" <?php checked(true, in_array($notification['id'], $selected_notifications)) ?> />
@@ -232,6 +245,7 @@ class GFBillplz extends GFPaymentAddOn {
                     <?php
                 }
             }
+
             ?>
         </ul>
         <script type='text/javascript'>
@@ -271,7 +285,8 @@ class GFBillplz extends GFPaymentAddOn {
         return $html;
     }
 
-    public function checkbox_input_change_post_status($choice, $attributes, $value, $tooltip) {
+    public function checkbox_input_change_post_status($choice, $attributes, $value, $tooltip)
+    {
         $markup = $this->checkbox_input($choice, $attributes, $value, $tooltip);
 
         $dropdown_field = array(
@@ -293,12 +308,14 @@ class GFBillplz extends GFPaymentAddOn {
      * 
      * @return bool
      */
-    public function option_choices() {
+    public function option_choices()
+    {
 
         return false;
     }
 
-    public function save_feed_settings($feed_id, $form_id, $settings) {
+    public function save_feed_settings($feed_id, $form_id, $settings)
+    {
 
         //--------------------------------------------------------
         //For backwards compatibility
@@ -330,7 +347,8 @@ class GFBillplz extends GFPaymentAddOn {
 
     //------ SENDING TO BILLPLZ -----------//
 
-    public function redirect_url($feed, $submission_data, $form, $entry) {
+    public function redirect_url($feed, $submission_data, $form, $entry)
+    {
 
         //Don't process redirect url if request is a Billplz return
         if (isset($_GET['billplz']['id'])) {
@@ -397,19 +415,19 @@ class GFBillplz extends GFPaymentAddOn {
 
         $billplz = new Billplz($api_key);
         $billplz
-                ->setAmount($amount)
-                ->setCollection($collection_id)
-                ->setDeliver($deliver)
-                ->setDescription($description)
-                ->setEmail($email)
-                ->setMobile($mobile)
-                ->setName($name)
-                ->setPassbackURL($ipn_url, $ipn_url)
-                ->setReference_1($reference_1)
-                ->setReference_1_Label($reference_1_label)
-                ->setReference_2($reference_2)
-                ->setReference_2_Label($reference_2_label)
-                ->create_bill(true);
+            ->setAmount($amount)
+            ->setCollection($collection_id)
+            ->setDeliver($deliver)
+            ->setDescription($description)
+            ->setEmail($email)
+            ->setMobile($mobile)
+            ->setName($name)
+            ->setPassbackURL($ipn_url, $ipn_url)
+            ->setReference_1($reference_1)
+            ->setReference_1_Label($reference_1_label)
+            ->setReference_2($reference_2)
+            ->setReference_2_Label($reference_2_label)
+            ->create_bill(true);
 
         $url = $billplz->getURL();
         $id = $billplz->getID();
@@ -424,7 +442,8 @@ class GFBillplz extends GFPaymentAddOn {
         return $url;
     }
 
-    public function return_url($form_id, $lead_id) {
+    public function return_url($form_id, $lead_id)
+    {
         $pageURL = GFCommon::is_ssl() ? 'https://' : 'http://';
 
         $server_port = apply_filters('gform_billplz_return_url_port', $_SERVER['SERVER_PORT']);
@@ -454,15 +473,17 @@ class GFBillplz extends GFPaymentAddOn {
          */
         return apply_filters('gform_billplz_return_url', $url, $form_id, $lead_id, $query);
     }
-    
     /*
      * This method needs to be provided to give an ability for the user to uninstall the plugin
      */
-    public function plugin_settings_fields() {
+
+    public function plugin_settings_fields()
+    {
         
     }
 
-    public static function maybe_thankyou_page() {
+    public static function maybe_thankyou_page()
+    {
         $instance = self::get_instance();
 
         if (!$instance->is_gravityforms_supported()) {
@@ -495,7 +516,8 @@ class GFBillplz extends GFPaymentAddOn {
         }
     }
 
-    public function delay_post($is_disabled, $form, $entry) {
+    public function delay_post($is_disabled, $form, $entry)
+    {
 
         $feed = $this->get_payment_feed($entry);
         $submission_data = $this->get_submission_data($feed, $form, $entry);
@@ -507,7 +529,8 @@ class GFBillplz extends GFPaymentAddOn {
         return !rgempty('delayPost', $feed['meta']);
     }
 
-    public function delay_notification($is_disabled, $notification, $form, $entry) {
+    public function delay_notification($is_disabled, $notification, $form, $entry)
+    {
         if (rgar($notification, 'event') != 'form_submission') {
             return $is_disabled;
         }
@@ -526,7 +549,8 @@ class GFBillplz extends GFPaymentAddOn {
 
     //------- PROCESSING BILLPLZ IPN (Callback) -----------//
 
-    public function callback() {
+    public function callback()
+    {
 
         if (!$this->is_gravityforms_supported()) {
             return false;
@@ -546,13 +570,14 @@ class GFBillplz extends GFPaymentAddOn {
             if ($action['type'] === 'complete_payment') {
                 $url = $_SESSION['success_redirect' . $action['entry_id']];
                 unset($_SESSION['success_redirect' . $action['entry_id']]);
-                header('Location: ' . $url);
-                exit;
-            } else {
 
-                header('Location: ' . $action['cancel_url']);
-                exit;
+                $stroutput = "Redirecting to Back... If you are not redirected, please click <a href=" . '"' . $url . '"' . " target='_self'>Here</a><br />"
+                    . "<script>location.href = '" . $url . "'</script>";
+            } else {
+                $stroutput = "Redirecting to Back... If you are not redirected, please click <a href=" . '"' . $action['cancel_url'] . '"' . " target='_self'>Here</a><br />"
+                    . "<script>location.href = '" . $action['cancel_url'] . "'</script>";
             }
+            echo $stroutput;
         }
         if (rgempty('entry_id', $action)) {
             return false;
@@ -561,7 +586,8 @@ class GFBillplz extends GFPaymentAddOn {
         return $action;
     }
 
-    private function process_bill() {
+    private function process_bill()
+    {
         $bill_id = htmlspecialchars(isset($_GET['billplz']['id']) ? $_GET['billplz']['id'] : $_POST['id']);
 
         $entry_id = get_option('billplz_gf_' . $bill_id, false);
@@ -650,7 +676,8 @@ class GFBillplz extends GFPaymentAddOn {
         return $action;
     }
 
-    private function is_valid_initial_payment_amount($entry_id, $amount_paid) {
+    private function is_valid_initial_payment_amount($entry_id, $amount_paid)
+    {
 
         $amount = get_option('billplz_gf_amount_' . $entry_id, false);
 
@@ -667,7 +694,8 @@ class GFBillplz extends GFPaymentAddOn {
         return true;
     }
 
-    public function get_payment_feed($entry, $form = false) {
+    public function get_payment_feed($entry, $form = false)
+    {
 
         $feed = parent::get_payment_feed($entry, $form);
 
@@ -681,7 +709,8 @@ class GFBillplz extends GFPaymentAddOn {
         return $feed;
     }
 
-    private function get_billplz_feed_by_entry($entry_id) {
+    private function get_billplz_feed_by_entry($entry_id)
+    {
 
         $feed_id = gform_get_meta($entry_id, 'billplz_feed_id');
         $feed = $this->get_feed($feed_id);
@@ -689,7 +718,8 @@ class GFBillplz extends GFPaymentAddOn {
         return !empty($feed) ? $feed : false;
     }
 
-    public function post_callback($callback_action, $callback_result) {
+    public function post_callback($callback_action, $callback_result)
+    {
         if (is_wp_error($callback_action) || !$callback_action) {
             return false;
         }
@@ -733,7 +763,8 @@ class GFBillplz extends GFPaymentAddOn {
         }
     }
 
-    public function modify_post($post_id, $action) {
+    public function modify_post($post_id, $action)
+    {
 
         $result = false;
 
@@ -757,7 +788,8 @@ class GFBillplz extends GFPaymentAddOn {
         return $result;
     }
 
-    public function is_callback_valid() {
+    public function is_callback_valid()
+    {
         if (rgget('page') != 'gf_billplz_ipn') {
             return false;
         }
@@ -767,7 +799,8 @@ class GFBillplz extends GFPaymentAddOn {
 
     //------- AJAX FUNCTIONS ------------------//
 
-    public function init_ajax() {
+    public function init_ajax()
+    {
 
         parent::init_ajax();
 
@@ -776,7 +809,8 @@ class GFBillplz extends GFPaymentAddOn {
 
     //------- ADMIN FUNCTIONS/HOOKS -----------//
 
-    public function init_admin() {
+    public function init_admin()
+    {
 
         parent::init_admin();
 
@@ -795,7 +829,8 @@ class GFBillplz extends GFPaymentAddOn {
      *
      * @return array
      */
-    public function supported_notification_events($form) {
+    public function supported_notification_events($form)
+    {
         if (!$this->has_feed($form['id'])) {
             return false;
         }
@@ -809,13 +844,15 @@ class GFBillplz extends GFPaymentAddOn {
         );
     }
 
-    public function ajax_dismiss_menu() {
+    public function ajax_dismiss_menu()
+    {
 
         $current_user = wp_get_current_user();
         update_metadata('user', $current_user->ID, 'dismiss_billplz_menu', '1');
     }
 
-    public function admin_edit_payment_status($payment_status, $form, $entry) {
+    public function admin_edit_payment_status($payment_status, $form, $entry)
+    {
         if ($this->payment_details_editing_disabled($entry)) {
             return $payment_status;
         }
@@ -830,7 +867,8 @@ class GFBillplz extends GFPaymentAddOn {
         return $payment_string;
     }
 
-    public function admin_edit_payment_date($payment_date, $form, $entry) {
+    public function admin_edit_payment_date($payment_date, $form, $entry)
+    {
         if ($this->payment_details_editing_disabled($entry)) {
             return $payment_date;
         }
@@ -845,7 +883,8 @@ class GFBillplz extends GFPaymentAddOn {
         return $input;
     }
 
-    public function admin_edit_payment_transaction_id($transaction_id, $form, $entry) {
+    public function admin_edit_payment_transaction_id($transaction_id, $form, $entry)
+    {
         if ($this->payment_details_editing_disabled($entry)) {
             return $transaction_id;
         }
@@ -855,7 +894,8 @@ class GFBillplz extends GFPaymentAddOn {
         return $input;
     }
 
-    public function admin_edit_payment_amount($payment_amount, $form, $entry) {
+    public function admin_edit_payment_amount($payment_amount, $form, $entry)
+    {
         if ($this->payment_details_editing_disabled($entry)) {
             return $payment_amount;
         }
@@ -869,7 +909,8 @@ class GFBillplz extends GFPaymentAddOn {
         return $input;
     }
 
-    public function admin_update_payment($form, $entry_id) {
+    public function admin_update_payment($form, $entry_id)
+    {
         check_admin_referer('gforms_save_entry', 'gforms_save_entry');
 
         //update payment information in admin, need to use this function so the lead data is updated before displayed in the sidebar info section
@@ -935,7 +976,8 @@ class GFBillplz extends GFPaymentAddOn {
         GFFormsModel::add_note($entry['id'], $user_id, $user_name, sprintf(esc_html__('Payment information was manually updated. Status: %s. Amount: %s. Transaction ID: %s. Date: %s', 'gravityformsbillplz'), $entry['payment_status'], GFCommon::to_money($entry['payment_amount'], $entry['currency']), $payment_transaction, $entry['payment_date']));
     }
 
-    public function fulfill_order(&$entry, $transaction_id, $amount, $feed = null) {
+    public function fulfill_order(&$entry, $transaction_id, $amount, $feed = null)
+    {
 
         if (!$feed) {
             $feed = $this->get_payment_feed($entry);
@@ -968,7 +1010,8 @@ class GFBillplz extends GFPaymentAddOn {
      *
      * @return array
      */
-    public function get_notifications_to_send($form, $feed) {
+    public function get_notifications_to_send($form, $feed)
+    {
         $notifications_to_send = array();
         $selected_notifications = rgars($feed, 'meta/selectedNotifications');
 
@@ -986,7 +1029,8 @@ class GFBillplz extends GFPaymentAddOn {
         return $notifications_to_send;
     }
 
-    public function billplz_fulfillment($entry, $billplz_config, $transaction_id, $amount) {
+    public function billplz_fulfillment($entry, $billplz_config, $transaction_id, $amount)
+    {
         //no need to do anything for billplz when it runs this function, ignore
         return false;
     }
@@ -999,7 +1043,8 @@ class GFBillplz extends GFPaymentAddOn {
      *
      * @return bool
      */
-    public function payment_details_editing_disabled($entry, $action = 'edit') {
+    public function payment_details_editing_disabled($entry, $action = 'edit')
+    {
         if (!$this->is_payment_gateway($entry['id'])) {
             // Entry was not processed by this add-on, don't allow editing.
             return true;
@@ -1026,7 +1071,8 @@ class GFBillplz extends GFPaymentAddOn {
         return true;
     }
 
-    public function uninstall() {
+    public function uninstall()
+    {
         parent::uninstall();
         global $wpdb;
         $wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE 'billplz_gf_%'");
@@ -1034,13 +1080,15 @@ class GFBillplz extends GFPaymentAddOn {
 
     //------ FOR BACKWARDS COMPATIBILITY ----------------------//
 
-    public function update_feed_id($old_feed_id, $new_feed_id) {
+    public function update_feed_id($old_feed_id, $new_feed_id)
+    {
         global $wpdb;
         $sql = $wpdb->prepare("UPDATE {$wpdb->prefix}rg_lead_meta SET meta_value=%s WHERE meta_key='billplz_feed_id' AND meta_value=%s", $new_feed_id, $old_feed_id);
         $wpdb->query($sql);
     }
 
-    public function add_legacy_meta($new_meta, $old_feed) {
+    public function add_legacy_meta($new_meta, $old_feed)
+    {
 
         $known_meta_keys = array(
             'email', 'mode', 'type', 'style', 'continue_text', 'cancel_url', 'disable_note', 'disable_shipping', 'recurring_amount_field', 'recurring_times',
@@ -1057,12 +1105,12 @@ class GFBillplz extends GFPaymentAddOn {
 
         return $new_meta;
     }
-
     /*
      * This function kept static for backwards compatibility
      */
 
-    public static function get_config_by_entry($entry) {
+    public static function get_config_by_entry($entry)
+    {
 
         $billplz = GFBillplz::get_instance();
 
@@ -1077,7 +1125,8 @@ class GFBillplz extends GFPaymentAddOn {
 
     //This function kept static for backwards compatibility
     //This needs to be here until all add-ons are on the framework, otherwise they look for this function
-    public static function get_config($form_id) {
+    public static function get_config($form_id)
+    {
 
         $billplz = GFBillplz::get_instance();
         $feed = $billplz->get_feeds($form_id);
@@ -1089,6 +1138,5 @@ class GFBillplz extends GFPaymentAddOn {
 
         return $feed[0]; //only one feed per form is supported (left for backwards compatibility)
     }
-
     //------------------------------------------------------
 }
