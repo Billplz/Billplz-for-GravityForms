@@ -685,7 +685,7 @@ class GFBillplz extends GFPaymentAddOn
             exit;
         }
 
-        $raw_amount_sent = (int) $amount;
+        $raw_amount_sent = floatval($amount);
         $amount_sent = number_format($raw_amount_sent, 2);
 
         if ($amount_sent !== $amount_paid) {
