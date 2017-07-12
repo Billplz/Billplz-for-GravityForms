@@ -371,11 +371,6 @@ class GFBillplz extends GFPaymentAddOn
         $_SESSION['success_redirect' . $entry_id] = $this->return_url($form['id'], $entry['id']);
 
         /*
-         * Save to db for future matching
-         */
-        update_option('billplz_gf_amount_' . $entry_id, rgar($submission_data, 'payment_amount'), false);
-
-        /*
          * Get to know where is variable inside $entry
          */
 
@@ -403,9 +398,14 @@ class GFBillplz extends GFPaymentAddOn
         $reference_1 = trim($feed['meta']['reference_1'] . $entry[$int_reference_1]);
         $reference_2 = trim($feed['meta']['reference_2'] . $entry[$int_reference_2]);
         $name = trim($entry[$int_name]);
-        $amount = rgar($submission_data, 'payment_amount');
+        $amount = preg_replace("/[^0-9]/","",rgar($submission_data, 'payment_amount'));
         $mobile = trim($entry[$int_mobile]);
         $email = trim($entry[$int_email]);
+		
+		/*
+         * Save to db for future matching
+         */
+        update_option('billplz_gf_amount_' . $entry_id, $amount, false);
 
         /*
          * Import billplz.php file for Create A Bill
