@@ -2,7 +2,7 @@
 Contributors: wanzulnet
 Tags: billplz,wanzul,paymentgateway,malaysia
 Tested up to: 4.8
-Stable tag: 3.4
+Stable tag: 3.5
 Donate link: https://www.billplz.com/hpojtffm3
 Requires at least: 4.3
 License: GPLv2 or later
@@ -19,6 +19,9 @@ Install this plugin to accept payment using Billplz (Maybank2u, CIMB Clicks, Ban
 * Screenshot 2
 
 == Changelog ==
+
+= 3.5 =
+* Fixed cent issues. Before this: RM61.50 will become RM6150. It's now fixed.
 
 = 3.4 =
 * Based on PayPal Standard Addon 2.8
