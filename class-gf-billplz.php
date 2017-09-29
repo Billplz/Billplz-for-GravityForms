@@ -398,7 +398,7 @@ class GFBillplz extends GFPaymentAddOn
         $reference_1 = trim($feed['meta']['reference_1'] . $entry[$int_reference_1]);
         $reference_2 = trim($feed['meta']['reference_2'] . $entry[$int_reference_2]);
         $name = trim($entry[$int_name]);
-        $amount = preg_replace("/[^0-9]/","",rgar($submission_data, 'payment_amount'));
+        $amount = rgar($submission_data, 'payment_amount');
         $mobile = trim($entry[$int_mobile]);
         $email = trim($entry[$int_email]);
 		
