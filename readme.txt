@@ -20,6 +20,9 @@ Install this plugin to accept payment using Billplz (Maybank2u, CIMB Clicks, Ban
 
 == Changelog ==
 
+= 3.6 =
+* Minor update to support logging on payment failed
+
 = 3.5 =
 * Fixed cent issues. Before this: RM61.50 will become RM6150. It's now fixed.
 
