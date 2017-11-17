@@ -593,6 +593,7 @@ class GFBillplz extends GFPaymentAddOn
         $entry_id = get_option('billplz_gf_' . $bill_id, false);
 
         if (!$entry_id) {
+	    $this->log_debug(__METHOD__ . "(): Response from Bill: {$bill_id} but the bills is not related to any entry id.");
             exit;
         }
 
