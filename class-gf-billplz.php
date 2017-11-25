@@ -36,7 +36,7 @@ class GFBillplz extends GFPaymentAddOn
 
     private function __clone()
     {
-        
+
     }
     /* do nothing */
 
@@ -118,7 +118,7 @@ class GFBillplz extends GFPaymentAddOn
         /*
          * Personal Note: To get current setting use this:
          * $this->get_setting('transactionType');
-         * 
+         *
          * It will return e.g.: 'subscription'
          */
 
@@ -305,7 +305,7 @@ class GFBillplz extends GFPaymentAddOn
 
     /**
      * Prevent the GFPaymentAddOn version of the options field being added to the feed settings.
-     * 
+     *
      * @return bool
      */
     public function option_choices()
@@ -401,7 +401,7 @@ class GFBillplz extends GFPaymentAddOn
         $amount = rgar($submission_data, 'payment_amount');
         $mobile = trim($entry[$int_mobile]);
         $email = trim($entry[$int_email]);
-		
+
 		/*
          * Save to db for future matching
          */
@@ -479,7 +479,7 @@ class GFBillplz extends GFPaymentAddOn
 
     public function plugin_settings_fields()
     {
-        
+
     }
 
     public static function maybe_thankyou_page()
@@ -571,10 +571,10 @@ class GFBillplz extends GFPaymentAddOn
                 $url = $_SESSION['success_redirect' . $action['entry_id']];
                 unset($_SESSION['success_redirect' . $action['entry_id']]);
 
-                $stroutput = "Redirecting to Back... If you are not redirected, please click <a href=" . '"' . $url . '"' . " target='_self'>Here</a><br />"
+                $stroutput = "Success! Redirecting to Back... If you are not redirected, please click <a href=" . '"' . $url . '"' . " target='_self'>Here</a><br />"
                     . "<script>location.href = '" . $url . "'</script>";
             } else {
-                $stroutput = "Redirecting to Back... If you are not redirected, please click <a href=" . '"' . $action['cancel_url'] . '"' . " target='_self'>Here</a><br />"
+                $stroutput = "Cancelled.. Redirecting to Back... If you are not redirected, please click <a href=" . '"' . $action['cancel_url'] . '"' . " target='_self'>Here</a><br />"
                     . "<script>location.href = '" . $action['cancel_url'] . "'</script>";
             }
             echo $stroutput;
@@ -582,6 +582,12 @@ class GFBillplz extends GFPaymentAddOn
         if (rgempty('entry_id', $action)) {
             return false;
         }
+
+        /* Do not process unpaid bills to prevent error */
+        if ($action['type'] === 'fail_payment'){
+          return false;
+        }
+
 
         return $action;
     }
