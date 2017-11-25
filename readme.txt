@@ -2,23 +2,26 @@
 Contributors: wanzulnet
 Tags: billplz,wanzul,paymentgateway,malaysia
 Tested up to: 4.9
-Stable tag: 3.6
+Stable tag: 3.7
 Donate link: https://www.billplz.com/hpojtffm3
 Requires at least: 4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Accept Internet Banking Payment by using Billplz. 
+Accept Internet Banking Payment by using Billplz.
 
 == Description ==
 
-Install this plugin to accept payment using Billplz (Maybank2u, CIMB Clicks, Bank Islam, FPX). 
+Install this plugin to accept payment using Billplz (Maybank2u, CIMB Clicks, Bank Islam, FPX).
 
 == Screenshots ==
 * Screenshot 1
 * Screenshot 2
 
 == Changelog ==
+
+= 3.7 =
+* Improved support for failed (1st) and success (2nd) payment. Payment is now captured properly
 
 = 3.6 =
 * Minor update to support logging on payment failed
