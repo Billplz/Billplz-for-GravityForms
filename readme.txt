@@ -1,12 +1,13 @@
 === Billplz for GravityForms ===
 Contributors: wanzulnet
-Tags: billplz,wanzul,paymentgateway,malaysia
-Tested up to: 4.9
-Stable tag: 3.7
-Donate link: https://www.billplz.com/hpojtffm3
-Requires at least: 4.3
-License: GPLv2 or later
+Tags: billplz,paymentgateway,fpx,malaysia
+Tested up to: 4.9.6
+Stable tag: 3.7.1
+Donate link: http://billplz.com/join/lz7pmrxa45tiihvqdydxqq/
+Requires at least: 4.6
+License: GPL-3.0-or-later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Requires PHP: 5.6
 
 Accept Internet Banking Payment by using Billplz.
 
@@ -20,22 +21,12 @@ Install this plugin to accept payment using Billplz (Maybank2u, CIMB Clicks, Ban
 
 == Changelog ==
 
+= 3.7.1 =
+* Still Based on PayPal Standard Addon 2.8
+* Fix an issue when amount greater than 1000
+
 = 3.7 =
 * Improved support for failed (1st) and success (2nd) payment. Payment is now captured properly
-
-= 3.6 =
-* Minor update to support logging on payment failed
-
-= 3.5 =
-* Fixed cent issues. Before this: RM61.50 will become RM6150. It's now fixed.
-
-= 3.4 =
-* Based on PayPal Standard Addon 2.8
-* THIS UPDATE WILL BREAK YOUR SITE. YOU ARE REQUIRED TO RE-CONFIGURE EVERYTHING IF YOU ARE UPDATING.
-
-= 3.3 =
-* Based on PayPal Standard Addon 2.7
-* NEW: Auto Submit Option
 
 == Installation ==
 1. Install & Activate
@@ -46,20 +37,20 @@ Install this plugin to accept payment using Billplz (Maybank2u, CIMB Clicks, Ban
 
 == Frequently Asked Questions ==
 
+= Where can I get API Secret Key? =
+
+You can the API Secret Key at your Billplz Account Settings. [Get it here](https://www.billplz.com/enterprise/setting)
+
 = Where can I get X Signature Key? =
 
-You can the X Signature Key at your Billplz Settings. Login to http://www.billplz.com
+You can the X Signature Key at your Billplz Account Settings. [Get it here](https://www.billplz.com/enterprise/setting)
 
 = Troubleshooting =
 
-1. Ensure the correct API Key and X Signature Key has been set up
-2. Contact us at wan@wanzul-hosting.com
+Please choose parameter name as First and not Full if the page is not redirected to Billplz payment page.
 
 == Links ==
-[Follow us on Facebook](http://www.facebook.com/billplz) for the latest update and information about this plugin.
-
-== Thanks ==
-Special thanks to Muhammad Ooi for constructive comment and recommendations.
+[Sign Up](http://billplz.com/join/lz7pmrxa45tiihvqdydxqq/) for Billplz account to accept payment using Billplz now!
 
 == Upgrade Notice ==
 * None
