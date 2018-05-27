@@ -637,7 +637,7 @@ class GFBillplz extends GFPaymentAddOn
         $moreData = $billplz->check_bill($bill_id);
         $paid_time = $billplz->get_bill_paid_time($bill_id);
 
-        $amount = number_format($moreData['amount'] / 100, 2);
+        $amount = number_format($moreData['amount'] / 100, 2, '.', '');
 
         //Ignore IPN messages from forms that are no longer configured with the Billplz add-on
         if (!$feed || !rgar($feed, 'is_active')) {
