@@ -36,7 +36,6 @@ class GFBillplz extends GFPaymentAddOn
 
     private function __clone()
     {
-
     }
     /* do nothing */
 
@@ -236,7 +235,6 @@ class GFBillplz extends GFPaymentAddOn
                 $notifications = GFCommon::get_notifications('form_submission', $form);
 
                 foreach ($notifications as $notification) {
-
                     ?>
                     <li class="gf_billplz_notification">
                         <input type="checkbox" class="notification_checkbox" value="<?php echo $notification['id'] ?>" onclick="SaveNotifications();" <?php checked(true, in_array($notification['id'], $selected_notifications)) ?> />
@@ -402,7 +400,13 @@ class GFBillplz extends GFPaymentAddOn
         $mobile = trim($entry[$int_mobile]);
         $email = trim($entry[$int_email]);
 
-		/*
+        /*
+         * Set NO NAME if GF not passing any name
+         */
+
+        $name = empty($name) ? 'NO NAME' : $name;
+        
+        /*
          * Save to db for future matching
          */
         update_option('billplz_gf_amount_' . $entry_id, $amount, false);
@@ -466,10 +470,10 @@ class GFBillplz extends GFPaymentAddOn
          *
          * @since 2.4.5
          *
-         * @param string  $url 	The URL to be filtered.
-         * @param int $form_id	The ID of the form being submitted.
-         * @param int $entry_id	The ID of the entry that was just created.
-         * @param string $query	The query string portion of the URL.
+         * @param string  $url  The URL to be filtered.
+         * @param int $form_id  The ID of the form being submitted.
+         * @param int $entry_id The ID of the entry that was just created.
+         * @param string $query The query string portion of the URL.
          */
         return apply_filters('gform_billplz_return_url', $url, $form_id, $lead_id, $query);
     }
@@ -479,7 +483,6 @@ class GFBillplz extends GFPaymentAddOn
 
     public function plugin_settings_fields()
     {
-
     }
 
     public static function maybe_thankyou_page()
@@ -501,7 +504,7 @@ class GFBillplz extends GFPaymentAddOn
                 $lead = GFAPI::get_entry($lead_id);
 
                 if (!class_exists('GFFormDisplay')) {
-                    require_once( GFCommon::get_base_path() . '/form_display.php' );
+                    require_once(GFCommon::get_base_path() . '/form_display.php');
                 }
 
                 $confirmation = GFFormDisplay::handle_confirmation($form, $lead, false);
@@ -584,8 +587,8 @@ class GFBillplz extends GFPaymentAddOn
         }
 
         /* Do not process unpaid bills to prevent error */
-        if ($action['type'] === 'fail_payment'){
-          return false;
+        if ($action['type'] === 'fail_payment') {
+            return false;
         }
 
 
@@ -599,7 +602,7 @@ class GFBillplz extends GFPaymentAddOn
         $entry_id = get_option('billplz_gf_' . $bill_id, false);
 
         if (!$entry_id) {
-	    $this->log_debug(__METHOD__ . "(): Response from Bill: {$bill_id} but the bills is not related to any entry id.");
+            $this->log_debug(__METHOD__ . "(): Response from Bill: {$bill_id} but the bills is not related to any entry id.");
             exit;
         }
 
@@ -620,11 +623,7 @@ class GFBillplz extends GFPaymentAddOn
 
         if (isset($_GET['billplz']['x_signature'])) {
             $data = Billplz::getRedirectData($x_sign);
-        } else if (isset($_POST['x_signature'])) {
-            /*
-             * Prevent Asynchronous run with redirect
-             */
-            sleep(10);
+        } elseif (isset($_POST['x_signature'])) {
             $data = Billplz::getCallbackData($x_sign);
         } else {
             $this->log_error(__METHOD__ . '(): IPN request does not have a custom field, so it was not created by Gravity Forms. Aborting.');
@@ -692,8 +691,10 @@ class GFBillplz extends GFPaymentAddOn
             exit;
         }
 
-        $raw_amount_sent = floatval($amount);
-        $amount_sent = number_format($raw_amount_sent, 2);
+        /*
+         * Fixed issue when amount is greater than RM1000
+         */
+        $amount_sent = number_format($amount, 2, '.', '');
 
         if ($amount_sent !== $amount_paid) {
             return false;
