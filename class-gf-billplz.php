@@ -626,7 +626,7 @@ class GFBillplz extends GFPaymentAddOn
         } elseif (isset($_POST['x_signature'])) {
             $data = Billplz::getCallbackData($x_sign);
         } else {
-            $this->log_error(__METHOD__ . '(): IPN request does not have a custom field, so it was not created by Gravity Forms. Aborting.');
+            $this->log_error(__METHOD__ . '(): IPN request does not have X Signature. Aborting.');
             return false;
         }
 

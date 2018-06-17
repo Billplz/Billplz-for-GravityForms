@@ -2,7 +2,7 @@
 Contributors: wanzulnet
 Tags: billplz,paymentgateway,fpx,malaysia
 Tested up to: 4.9.6
-Stable tag: 3.7.1
+Stable tag: 3.7.2
 Donate link: http://billplz.com/join/lz7pmrxa45tiihvqdydxqq/
 Requires at least: 4.6
 License: GPL-3.0-or-later
@@ -21,12 +21,15 @@ Install this plugin to accept payment using Billplz (Maybank2u, CIMB Clicks, Ban
 
 == Changelog ==
 
+= 3.7.2 =
+* Still Based on PayPal Standard Addon 2.8
+* Set name to NO NAME if GravityForms not passing name parameter
+* Fix issue when amount paid is RM1000 or more
+* Added support for PHP 7.2 
+
 = 3.7.1 =
 * Still Based on PayPal Standard Addon 2.8
 * Fix an issue when amount greater than 1000
-
-= 3.7 =
-* Improved support for failed (1st) and success (2nd) payment. Payment is now captured properly
 
 == Installation ==
 1. Install & Activate
