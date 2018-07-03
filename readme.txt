@@ -2,7 +2,7 @@
 Contributors: wanzulnet
 Tags: billplz,paymentgateway,fpx,malaysia
 Tested up to: 4.9.6
-Stable tag: 3.7.2
+Stable tag: 3.7.3
 Donate link: http://billplz.com/join/lz7pmrxa45tiihvqdydxqq/
 Requires at least: 4.6
 License: GPL-3.0-or-later
@@ -13,7 +13,7 @@ Accept Internet Banking Payment by using Billplz.
 
 == Description ==
 
-Install this plugin to accept payment using Billplz (Maybank2u, CIMB Clicks, Bank Islam, FPX).
+Install this plugin to accept payment using Billplz.
 
 == Screenshots ==
 * Screenshot 1
@@ -21,15 +21,16 @@ Install this plugin to accept payment using Billplz (Maybank2u, CIMB Clicks, Ban
 
 == Changelog ==
 
+= 3.7.3 =
+* Still Based on PayPal Standard Addon 2.8
+* Fixed Timezone issue for payment date
+* Updated FAQ section on Readme regarding Bill ID
+
 = 3.7.2 =
 * Still Based on PayPal Standard Addon 2.8
 * Set name to NO NAME if GravityForms not passing name parameter
 * Fix issue when amount paid is RM1000 or more
 * Added support for PHP 7.2 
-
-= 3.7.1 =
-* Still Based on PayPal Standard Addon 2.8
-* Fix an issue when amount greater than 1000
 
 == Installation ==
 1. Install & Activate
@@ -39,6 +40,10 @@ Install this plugin to accept payment using Billplz (Maybank2u, CIMB Clicks, Ban
 5. Update Settings
 
 == Frequently Asked Questions ==
+
+= How to include Bill ID on payment notification? =
+
+Set the tag {entry:transaction_id} at the event Payment Completion notification. You may refer to [GravityForms Merge Tag](https://docs.gravityforms.com/merge-tags/#entry-data) for more information.
 
 = Where can I get API Secret Key? =
 
