@@ -667,7 +667,7 @@ class GFBillplz extends GFPaymentAddOn
 
         if ($data['paid']) {
             $action['type'] = 'complete_payment';
-            $action['payment_date'] = gmdate('d-m-Y H:i:s', $paid_time);
+            $action['payment_date'] = $paid_time->format('d-m-Y H:i:s');
             $action['payment_method'] = 'Billplz';
             $action['ready_to_fulfill'] = !$entry['is_fulfilled'] ? true : false;
         } else {
