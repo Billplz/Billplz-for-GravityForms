@@ -21,16 +21,14 @@ Install this plugin to accept payment using Billplz.
 
 == Changelog ==
 
+= 3.7.4 =
+* Still based on PayPal Standard Addon 2.8
+* Fix issue for 3.7.3 when other Billplz plugin activated in a time.
+
 = 3.7.3 =
 * Still Based on PayPal Standard Addon 2.8
 * Fixed Timezone issue for payment date
 * Updated FAQ section on Readme regarding Bill ID
-
-= 3.7.2 =
-* Still Based on PayPal Standard Addon 2.8
-* Set name to NO NAME if GravityForms not passing name parameter
-* Fix issue when amount paid is RM1000 or more
-* Added support for PHP 7.2 
 
 == Installation ==
 1. Install & Activate
