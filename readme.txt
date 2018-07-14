@@ -24,6 +24,7 @@ Install this plugin to accept payment using Billplz.
 = 3.7.4 =
 * Still based on PayPal Standard Addon 2.8
 * Fix issue for 3.7.3 when other Billplz plugin activated in a time.
+* The datetime will strictly depends on Transaction Time
 
 = 3.7.3 =
 * Still Based on PayPal Standard Addon 2.8

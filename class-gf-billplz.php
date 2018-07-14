@@ -435,7 +435,7 @@ class GFBillplz extends GFPaymentAddOn
 
         $url = $billplz->getURL();
         $id = $billplz->getID();
-
+        
         /*
          * Save to db for callback & redirect use
          */
@@ -628,7 +628,7 @@ class GFBillplz extends GFPaymentAddOn
          *
          * Uncomment $bill_id = $_GET['billplz']['id'];
          */
-
+         
         if (isset($_GET['billplz']['x_signature'])) {
             $data = BillplzAPI_GF::getRedirectData($x_sign);
         } elseif (isset($_POST['x_signature'])) {
@@ -639,11 +639,21 @@ class GFBillplz extends GFPaymentAddOn
         }
 
         $bill_id = $data['id'];
-        // $bill_id = $_GET['billplz']['id'];
+        
+        //$bill_id = $_GET['billplz']['id'];
 
         $billplz = new BillplzAPI_GF($api_key);
         $moreData = $billplz->check_bill($bill_id);
         $paid_time = $billplz->get_bill_paid_time($bill_id);
+        
+        /* Make sure WordPress Timezone not interfere with the date */
+        $timezone_offset = strval(get_option('gmt_offset'));
+        
+        if (preg_match("/-/", $timezone_offset)) {
+            $paid_time->add(new DateInterval('PT'.abs($timezone_offset).'H'));
+        } else {
+            $paid_time->sub(new DateInterval('PT'.$timezone_offset.'H'));
+        }
 
         $amount = number_format($moreData['amount'] / 100, 2, '.', '');
 
