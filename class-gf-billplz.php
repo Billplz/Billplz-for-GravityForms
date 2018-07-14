@@ -621,6 +621,14 @@ class GFBillplz extends GFPaymentAddOn
         $api_key = $feed['meta']['api_key'];
         $x_sign = $feed['meta']['x_signature_key'];
 
+        /**
+         * To force bill checks without X Signature:
+         * Comment all of this getData block until
+         * $bill_id = $data['id'];
+         *
+         * Uncomment $bill_id = $_GET['billplz']['id'];
+         */
+
         if (isset($_GET['billplz']['x_signature'])) {
             $data = BillplzAPI_GF::getRedirectData($x_sign);
         } elseif (isset($_POST['x_signature'])) {
@@ -631,6 +639,7 @@ class GFBillplz extends GFPaymentAddOn
         }
 
         $bill_id = $data['id'];
+        // $bill_id = $_GET['billplz']['id'];
 
         $billplz = new BillplzAPI_GF($api_key);
         $moreData = $billplz->check_bill($bill_id);
@@ -665,7 +674,7 @@ class GFBillplz extends GFPaymentAddOn
             $action['cancel_url'] = $feed['meta']['cancelUrl'];
         }
 
-        if ($data['paid']) {
+        if ($moreData['paid']) {
             $action['type'] = 'complete_payment';
             $action['payment_date'] = $paid_time->format('d-m-Y H:i:s');
             $action['payment_method'] = 'Billplz';
