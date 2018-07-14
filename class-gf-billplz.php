@@ -417,7 +417,7 @@ class GFBillplz extends GFPaymentAddOn
 
         require_once __DIR__ . '/includes/billplz.php';
 
-        $billplz = new Billplz($api_key);
+        $billplz = new BillplzAPI_GF($api_key);
         $billplz
             ->setAmount($amount)
             ->setCollection($collection_id)
@@ -622,9 +622,9 @@ class GFBillplz extends GFPaymentAddOn
         $x_sign = $feed['meta']['x_signature_key'];
 
         if (isset($_GET['billplz']['x_signature'])) {
-            $data = Billplz::getRedirectData($x_sign);
+            $data = BillplzAPI_GF::getRedirectData($x_sign);
         } elseif (isset($_POST['x_signature'])) {
-            $data = Billplz::getCallbackData($x_sign);
+            $data = BillplzAPI_GF::getCallbackData($x_sign);
         } else {
             $this->log_error(__METHOD__ . '(): IPN request does not have X Signature. Aborting.');
             return false;
@@ -632,7 +632,7 @@ class GFBillplz extends GFPaymentAddOn
 
         $bill_id = $data['id'];
 
-        $billplz = new Billplz($api_key);
+        $billplz = new BillplzAPI_GF($api_key);
         $moreData = $billplz->check_bill($bill_id);
         $paid_time = $billplz->get_bill_paid_time($bill_id);
 

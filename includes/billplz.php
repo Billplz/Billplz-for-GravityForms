@@ -5,9 +5,9 @@ require 'vendor/autoload.php';
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 
-if (!class_exists('Billplz')) {
+if (!class_exists('BillplzAPI_GF')) {
 
-    class Billplz
+    class BillplzAPI_GF
     {
 
         public static $version = 3.04;
@@ -24,7 +24,7 @@ if (!class_exists('Billplz')) {
         public function __construct($api_key = '')
         {
             $this->array = array();
-            $this->obj = new BillplzAction;
+            $this->obj = new BillplzActionAPI_GF;
             if (empty($api_key)) {
                 $this->obj->setAPI(self::$api_key);
             } else {
@@ -552,7 +552,7 @@ if (!class_exists('Billplz')) {
         }
     }
 
-    class BillplzAction
+    class BillplzActionAPI_GF
     {
 
         var $url, $action, $curldata, $api_key;
