@@ -646,15 +646,6 @@ class GFBillplz extends GFPaymentAddOn
         $moreData = $billplz->check_bill($bill_id);
         $paid_time = $billplz->get_bill_paid_time($bill_id);
         
-        /* Make sure WordPress Timezone not interfere with the date */
-        $timezone_offset = strval(get_option('gmt_offset'));
-        
-        if (preg_match("/-/", $timezone_offset)) {
-            $paid_time->add(new DateInterval('PT'.abs($timezone_offset).'H'));
-        } else {
-            $paid_time->sub(new DateInterval('PT'.$timezone_offset.'H'));
-        }
-
         $amount = number_format($moreData['amount'] / 100, 2, '.', '');
 
         //Ignore IPN messages from forms that are no longer configured with the Billplz add-on
@@ -685,6 +676,13 @@ class GFBillplz extends GFPaymentAddOn
         }
 
         if ($moreData['paid']) {
+            /* Make sure WordPress Timezone not interfere with the date */
+            $timezone_offset = strval(get_option('gmt_offset'));
+            if (preg_match("/-/", $timezone_offset)) {
+                $paid_time->add(new DateInterval('PT'.abs($timezone_offset).'H'));
+            } else {
+                $paid_time->sub(new DateInterval('PT'.$timezone_offset.'H'));
+            }
             $action['type'] = 'complete_payment';
             $action['payment_date'] = $paid_time->format('d-m-Y H:i:s');
             $action['payment_method'] = 'Billplz';
