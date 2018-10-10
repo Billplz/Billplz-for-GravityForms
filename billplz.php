@@ -3,16 +3,16 @@
  * Plugin Name: Billplz for GravityForms
  * Plugin URI: https://wordpress.org/plugins-wp/billplz-for-gravityforms/
  * Description: Billplz Payment Gateway | Accept Payment using all participating FPX Banking Channels. <a href="https://www.billplz.com/join/8ant7x743awpuaqcxtqufg" target="_blank">Sign up Now</a>.
- * Author: Wan @ Billplz
+ * Author: Billplz Sdn. Bhd.
  * Author URI: http://github.com/billplz/billplz-for-gravityforms
- * Version: 3.7.4
+ * Version: 3.7.5
  * License: GPLv3
  * Requires PHP: 5.6
  * Domain Path: /languages/
  */
 // Add settings link on plugin page
 
-define('GF_BILLPLZ_VERSION', '3.7.4');
+define('GF_BILLPLZ_VERSION', '3.7.5');
 
 add_action('gform_loaded', array( 'GF_Billplz_Bootstrap', 'load' ), 5);
 
