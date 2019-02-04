@@ -747,6 +747,7 @@ class GFBillplz extends GFPaymentAddOn
         try {
             $data = BillplzGravityFormsWPConnect::getXSignature($x_signature);
         } catch (Exception $e) {
+            status_header(403);
             $this->log_debug(__METHOD__ . '(): Failed X Signature Validation.');
             exit('Failed X Signature Validation');
         }
