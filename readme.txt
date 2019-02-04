@@ -1,9 +1,8 @@
 === Billplz for GravityForms ===
 Contributors: wanzulnet
 Tags: billplz,paymentgateway,fpx,malaysia
-Tested up to: 4.9.6
-Stable tag: 3.7.5
-Donate link: http://billplz.com/join/lz7pmrxa45tiihvqdydxqq/
+Tested up to: 5.0.3
+Stable tag: 3.8.0
 Requires at least: 4.6
 License: GPL-3.0-or-later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -21,19 +20,21 @@ Install this plugin to accept payment using Billplz.
 
 == Changelog ==
 
-= 3.7.5 =
-* Still based on PayPal Standard Addon 2.8
-* Fix issue when payer doesn't pay the form
+= 3.8.0 =
+* Based on PayPal Standard Addon 3.1
+* Support for merge tag for Bill Description.
+* This update may break your site. Only recommended for new installation.
 
-= 3.7.4 =
+= 3.7.6 =
+
 * Still based on PayPal Standard Addon 2.8
-* Fix issue for 3.7.3 when other Billplz plugin activated in a time.
-* The datetime will strictly depends on Transaction Time
+* Fix syntax error involving reference_1 and reference_2
+* Removed dependency on PHP GuzzleHTTP
 
 == Installation ==
 1. Install & Activate
 2. Forms >> Settings >> Billplz >> Add New
-3. Insert your API Key, X Signature Key
+3. Insert your API Key, Collection ID and X Signature Key
 4. For "Billplz Field" you need to set either Email or Mobile Phone Number or Both.
 5. Update Settings
 
@@ -59,4 +60,5 @@ Please choose parameter name as First and not Full if the page is not redirected
 [Sign Up](http://billplz.com/join/lz7pmrxa45tiihvqdydxqq/) for Billplz account to accept payment using Billplz now!
 
 == Upgrade Notice ==
-* None
+
+This update may break existing setup. Make sure you have a proper backup.
