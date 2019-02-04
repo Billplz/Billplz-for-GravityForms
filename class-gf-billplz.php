@@ -131,7 +131,7 @@ class GFBillplz extends GFPaymentAddOn
                 'name' => 'bill_description',
                 'tooltip' => '<h6>' . esc_html__('Billplz Bills Description', 'gravityformsbillplz') . '</h6>' . esc_html__('Enter your description here. It will displayed on Bill page.', 'gravityformsbillplz'),
                 'class' => 'medium merge-tag-support mt-position-right',
-                'required' => true,
+                'required' => false,
             )
         );
 
@@ -291,7 +291,7 @@ class GFBillplz extends GFPaymentAddOn
             array_unshift($billing_info['field_map'], array('name' => 'email', 'label' => esc_html__('Email', 'gravityformsbillplz'), 'required' => false));
         }
         if ($add_name) {
-            array_unshift($billing_info['field_map'], array('name' => 'name', 'label' => esc_html__('Name', 'gravityformsbillplz'), 'required' => true));
+            array_unshift($billing_info['field_map'], array('name' => 'name', 'label' => esc_html__('Name', 'gravityformsbillplz'), 'required' => false));
         }
 
         $default_settings = parent::replace_field('billingInformation', $billing_info, $default_settings);
@@ -770,7 +770,7 @@ class GFBillplz extends GFPaymentAddOn
             return array(
                 'id' => $data['id'],
                 'transaction_id' => $data['id'],
-                'amount' => $data['amount'],
+                'amount' => strval($data['amount'] / 100),
                 'entry_id' => $entry['id'],
                 'payment_date' => get_the_date('y-m-d H:i:s'),
                 'type' => 'complete_payment',
