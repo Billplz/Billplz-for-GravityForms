@@ -12,7 +12,19 @@ Accept Internet Banking Payment by using Billplz.
 
 == Description ==
 
-Install this plugin to accept payment using Billplz.
+Accept all participating Internet Banking, e-Wallet, Credit Cards and more with Gravity Forms! 
+
+= Why choose Billplz? =
+
+Billplz has no setup and monthly fees. Only pay as per payment received at RM1.50. You can also opt for a Preferred Plan @ RM1,500/month and save up to RM1.00 per payment received.
+
+= How to register? =
+
+[Register now](https://www.billplz.com/enterprise/signup) and submit the completed form to be registered and verified. The verification will be done automatically in 3 working days.
+
+= Settlement policy =
+
+Total daily collection (minimum RM0.01) shall be deposited automatically into the authorized bank account the next day (UTC+08:00 Kuala Lumpur) excluding Friday, Saturday, Sunday and Federal holidays. 
 
 == Screenshots ==
 * Screenshot 1
@@ -24,12 +36,6 @@ Install this plugin to accept payment using Billplz.
 * Based on PayPal Standard Addon 3.1
 * Support for merge tag for Bill Description.
 * This update may break your site. Only recommended for new installation.
-
-= 3.7.6 =
-
-* Still based on PayPal Standard Addon 2.8
-* Fix syntax error involving reference_1 and reference_2
-* Removed dependency on PHP GuzzleHTTP
 
 == Installation ==
 1. Install & Activate.
