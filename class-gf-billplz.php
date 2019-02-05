@@ -59,8 +59,8 @@ class GFBillplz extends GFPaymentAddOn
             esc_html__('Billplz for Gravity Forms requires X Signature to be enabled on your Billplz account. Follow the following steps to confirm X Signature is enabled.', 'gravityformsbillplz') .
             '</p>
             <ul>
-                <li>' . sprintf(esc_html__('Navigate to your %sBillplz Account Settings%spage.', 'gravityformsbillplz'), '<a href="https://www.billplz.com/enterprise/setting" target="_blank">', '</a>') . '</li>' .
-            '<li>' . esc_html__('You will see your current <strong>XSignature Payment Completion</strong> settings along with a button to Save & Copy XSignature Key. Just tick that option and click Save & Copy XSignature Key. Then, you are ready to go!', 'gravityformsbillplz') . '</li>' .
+                <li>' . sprintf(esc_html__('Navigate to your %sBillplz Account Settings%s page.', 'gravityformsbillplz'), '<a href="https://www.billplz.com/enterprise/setting" target="_blank">', '</a>') . '</li>' .
+                '<li>' . sprintf(esc_html__('You will see your current %sXSignature Payment Completion%s settings along with a button to Save & Copy XSignature Key. Just tick that option and click Save & Copy XSignature Key. Then, you are ready to go!', 'gravityformsbillplz'), '<strong>', '</strong>') . '</li>' .
             '</ul>
                 <br/>';
 
@@ -71,7 +71,7 @@ class GFBillplz extends GFPaymentAddOn
                 'fields'      => array(
                     array(
                         'name'    => 'gf_billplz_x_signature_configured',
-                        'label'   => esc_html__('Billplz XSignature Payment Completion', 'gravityformsbillplz'),
+                        'label'   => esc_html__('Billplz XSignature Setting', 'gravityformsbillplz'),
                         'type'    => 'checkbox',
                         'choices' => array( array( 'label' => esc_html__('Confirm that you have configured your Billplz account to enable XSignature Payment Completion', 'gravityformsbillplz'), 'name' => 'gf_billplz_x_signature_configured' ) )
                     ),
@@ -557,39 +557,45 @@ class GFBillplz extends GFPaymentAddOn
         //updating lead's payment_status to Processing
         GFAPI::update_entry_property($entry['id'], 'payment_status', 'Processing');
 
+        $feed_meta = $feed['meta'];
+
         //get array key for required parameter
-        $int_name = $feed['meta']['billingInformation_name'];
-        $int_email = $feed['meta']['billingInformation_email'];
-        $int_mobile = $feed['meta']['billingInformation_mobile'];
-        $int_reference_1_label = $feed['meta']['billingInformation_reference_1_label'];
-        $int_reference_2_label = $feed['meta']['billingInformation_reference_2_label'];
-        $int_reference_1 = $feed['meta']['billingInformation_reference_1'];
-        $int_reference_2 = $feed['meta']['billingInformation_reference_2'];
+        $b = 'billingInformation_';
+
+        $int_name = isset($feed_meta[$b.'name']) ? $feed_meta[$b.'name'] : '';
+        $int_email = isset($feed_meta[$b.'email']) ? $feed_meta[$b.'email'] : '';
+        $int_mobile = isset($feed_meta[$b.'mobile']) ? $feed_meta[$b.'mobile'] : '';
+        $int_reference_1_label = isset($feed_meta[$b.'reference_1_label']) ? $feed_meta[$b.'reference_1_label'] : '';
+        $int_reference_2_label = isset($feed_meta[$b.'reference_2_label']) ? $feed_meta[$b.'reference_2_label'] : '';
+        $int_reference_1 = isset($feed_meta[$b.'reference_1']) ? $feed_meta[$b.'reference_1'] : '';
+        $int_reference_2 = isset($feed_meta[$b.'reference_2']) ? $feed_meta[$b.'reference_2'] : '';
 
         $email = isset($entry[$int_email]) ? $entry[$int_email] : '';
         $mobile = isset($entry[$int_mobile]) ? $entry[$int_mobile] : '';
         $name = isset($entry[$int_name]) ? $entry[$int_name] : '';
 
         $parameter = array(
-            'collection_id' => trim($feed['meta']['collection_id']),
+            'collection_id' => trim($feed_meta['collection_id']),
             'email' => trim($email),
             'mobile'=> trim($mobile),
             'name' => trim($name),
             'amount' => strval(rgar($submission_data, 'payment_amount') * 100),
             'callback_url' => site_url("/?page=gf_billplz&entry_id={$entry['id']}"),
-            'description' => mb_substr(GFCommon::replace_variables($feed['meta']['bill_description'], $form, $entry), 0, 200)
+            'description' => mb_substr(GFCommon::replace_variables($feed_meta['bill_description'], $form, $entry), 0, 200)
         );
 
-        if (empty($parameter['mobile']) || empty($parameter['email'])) {
+        if (empty($parameter['mobile']) && empty($parameter['email'])) {
             $parameter['email'] = 'noreply@billplz.com';
         }
 
         if (empty($parameter['name'])) {
-            $parameter['name'] = get_bloginfo('name');
+            $blog_name = get_bloginfo('name');
+            $parameter['name'] =  !empty($blog_name) ? $blog_name : 'Set your payer name';
         }
 
         if (empty($parameter['description'])) {
-            $parameter['description'] = get_bloginfo('description');
+            $blog_description = get_bloginfo('description');
+            $parameter['description'] = !empty($blog_description) ? $blog_description : 'Set your payment description';
         }
 
         $reference_1_label = isset($entry[$int_reference_1_label]) ? $entry[$int_reference_1_label] : '';
@@ -605,7 +611,7 @@ class GFBillplz extends GFPaymentAddOn
             'reference_2' => mb_substr($reference_2, 0, 120)
         );
 
-        $connect = new BillplzGravityFormsWPConnect(trim($feed['meta']['api_key']));
+        $connect = new BillplzGravityFormsWPConnect(trim($feed_meta['api_key']));
         $connect->detectMode();
         $billplz = new BillplzGravityFormsAPI($connect);
 
