@@ -32,11 +32,10 @@ Install this plugin to accept payment using Billplz.
 * Removed dependency on PHP GuzzleHTTP
 
 == Installation ==
-1. Install & Activate
-2. Forms >> Settings >> Billplz >> Add New
-3. Insert your API Key, Collection ID and X Signature Key
-4. For "Billplz Field" you need to set either Email or Mobile Phone Number or Both.
-5. Update Settings
+1. Install & Activate.
+2. Forms >> Settings >> Billplz >> Add New.
+3. Insert your API Key, Collection ID and X Signature Key.
+4. Update Settings.
 
 == Frequently Asked Questions ==
 
@@ -44,17 +43,17 @@ Install this plugin to accept payment using Billplz.
 
 Set the tag {entry:transaction_id} at the event Payment Completion notification. You may refer to [GravityForms Merge Tag](https://docs.gravityforms.com/merge-tags/#entry-data) for more information.
 
-= Where can I get API Secret Key? =
+= Where can I get API Secret & X Signature Key ? =
 
 You can the API Secret Key at your Billplz Account Settings. [Get it here](https://www.billplz.com/enterprise/setting)
 
-= Where can I get X Signature Key? =
+= Where can I get Collection ID? =
 
-You can the X Signature Key at your Billplz Account Settings. [Get it here](https://www.billplz.com/enterprise/setting)
+You can the Collection ID at your Billplz >> Billing. [Get it here](https://www.billplz.com/enterprise/billing)
 
 = Troubleshooting =
 
-Please choose parameter name as First and not Full if the page is not redirected to Billplz payment page.
+Known issues: Name with (Full) option will return null.
 
 == Links ==
 [Sign Up](http://billplz.com/join/lz7pmrxa45tiihvqdydxqq/) for Billplz account to accept payment using Billplz now!
