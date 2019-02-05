@@ -27,8 +27,8 @@ Billplz has no setup and monthly fees. Only pay as per payment received at RM1.5
 Total daily collection (minimum RM0.01) shall be deposited automatically into the authorized bank account the next day (UTC+08:00 Kuala Lumpur) excluding Friday, Saturday, Sunday and Federal holidays. 
 
 == Screenshots ==
-* Screenshot 1
-* Screenshot 2
+* Screenshot 1: Setting for API Secret Key, Collection ID and X Signature Key.
+* Screenshot 2: Setting for Payment Amount field and Billplz field.
 
 == Changelog ==
 
