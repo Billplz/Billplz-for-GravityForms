@@ -124,7 +124,7 @@ class GFBillplz extends GFPaymentAddOn
                 'type' => 'text',
                 'class' => 'medium',
                 'required' => true,
-                'tooltip' => '<h6>' . esc_html__('Billplz Collection ID', 'gravityformsbillplz') . '</h6>' . esc_html__('Enter your choosen specific Billing Collection ID. It can be retrieved from Billplz Billing page.', 'gravityformsbillplz')
+                'tooltip' => '<h6>' . esc_html__('Billplz Collection ID', 'gravityformsbillplz') . '</h6>' . esc_html__('Enter your chosen specific Billing Collection ID. It can be retrieved from Billplz Billing page.', 'gravityformsbillplz')
             ),
             array(
                 'name' => 'x_signature_key',

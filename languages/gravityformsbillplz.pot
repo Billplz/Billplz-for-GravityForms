@@ -1,0 +1,199 @@
+# Copyright (C) 2019 Billplz Sdn. Bhd.
+# This file is distributed under the same license as the Billplz for GravityForms plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Billplz for GravityForms 3.8.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/billplz-for-gravityforms\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2019-02-06T10:54:46+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.1.0\n"
+"X-Domain: gravityformsbillplz\n"
+
+#. Plugin Name of the plugin
+msgid "Billplz for GravityForms"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://wordpress.org/plugins-wp/billplz-for-gravityforms/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Billplz Payment Gateway | <a href=\"https://www.billplz.com/enterprise/signup\" target=\"_blank\">Sign up Now</a>."
+msgstr ""
+
+#. Author of the plugin
+msgid "Billplz Sdn. Bhd."
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://www.billplz.com"
+msgstr ""
+
+#: class-gf-billplz.php:60
+msgid "Billplz for GravityForms requires X Signature to be enabled on your Billplz account. Follow the following steps to confirm X Signature is enabled."
+msgstr ""
+
+#. translators: %2$s is replaced with "</a>"
+#: class-gf-billplz.php:66
+msgid "Navigate to your %1$sBillplz Account Settings%2$s page."
+msgstr ""
+
+#. translators: %2$s is replaced with "</strong>"
+#: class-gf-billplz.php:70
+msgid "You will see your current %1$sXSignature Payment Completion%2$s settings along with a button to Save & Copy XSignature Key. Just tick that option and click Save & Copy XSignature Key. Then, you are ready to go!"
+msgstr ""
+
+#: class-gf-billplz.php:81
+msgid "Billplz XSignature Setting"
+msgstr ""
+
+#: class-gf-billplz.php:83
+msgid "Confirm that you have configured your Billplz account to enable XSignature Payment Completion"
+msgstr ""
+
+#: class-gf-billplz.php:88
+msgid "Settings have been updated."
+msgstr ""
+
+#. translators: %2$s is replaced with "</a>"
+#: class-gf-billplz.php:102
+msgid "To get started, please configure your %1$sBillplz Account Settings%2$s!"
+msgstr ""
+
+#: class-gf-billplz.php:115
+msgid "API Secret Key "
+msgstr ""
+
+#: class-gf-billplz.php:119
+msgid "Billplz API Secret Key"
+msgstr ""
+
+#: class-gf-billplz.php:119
+#: class-gf-billplz.php:135
+msgid "It can be from Production or Staging. It can be retrieved from Billplz Account Settings page."
+msgstr ""
+
+#: class-gf-billplz.php:123
+msgid "Collection ID "
+msgstr ""
+
+#: class-gf-billplz.php:127
+msgid "Billplz Collection ID"
+msgstr ""
+
+#: class-gf-billplz.php:127
+msgid "Enter your chosen specific Billing Collection ID. It can be retrieved from Billplz Billing page."
+msgstr ""
+
+#: class-gf-billplz.php:131
+msgid "X Signature Key "
+msgstr ""
+
+#: class-gf-billplz.php:135
+msgid "Billplz X Signature Key"
+msgstr ""
+
+#: class-gf-billplz.php:138
+msgid "Bill Description"
+msgstr ""
+
+#: class-gf-billplz.php:141
+msgid "Billplz Bills Description"
+msgstr ""
+
+#: class-gf-billplz.php:141
+msgid "Enter your description here. It will displayed on Bill page."
+msgstr ""
+
+#: class-gf-billplz.php:160
+#: class-gf-billplz.php:164
+msgid "Cancel URL"
+msgstr ""
+
+#: class-gf-billplz.php:164
+msgid "Enter the URL the user should be sent to should they cancel before completing their payment."
+msgstr ""
+
+#: class-gf-billplz.php:171
+#: class-gf-billplz.php:173
+msgid "Notifications"
+msgstr ""
+
+#: class-gf-billplz.php:173
+msgid "Enable this option if you would like to only send out this form's notifications for the 'Form is submitted' event after payment has been received. Leaving this option disabled will send these notifications immediately after the form is submitted. Notifications which are configured for other events will not be affected by this option."
+msgstr ""
+
+#: class-gf-billplz.php:183
+#: class-gf-billplz.php:185
+msgid "Posts"
+msgstr ""
+
+#: class-gf-billplz.php:185
+msgid "Enable this option if you would like to only create the post after payment has been received."
+msgstr ""
+
+#: class-gf-billplz.php:187
+msgid "Create post only when payment is received."
+msgstr ""
+
+#: class-gf-billplz.php:285
+msgid "Reference 2"
+msgstr ""
+
+#: class-gf-billplz.php:288
+msgid "Reference 2 Label"
+msgstr ""
+
+#: class-gf-billplz.php:291
+msgid "Reference 1"
+msgstr ""
+
+#: class-gf-billplz.php:294
+msgid "Reference 1 Label"
+msgstr ""
+
+#: class-gf-billplz.php:297
+msgid "Mobile Phone Number"
+msgstr ""
+
+#: class-gf-billplz.php:300
+msgid "Email"
+msgstr ""
+
+#: class-gf-billplz.php:303
+msgid "Name"
+msgstr ""
+
+#: class-gf-billplz.php:322
+msgid "Billplz Field"
+msgstr ""
+
+#: class-gf-billplz.php:379
+msgid "Send notifications for the 'Form is submitted' event only when payment is received."
+msgstr ""
+
+#: class-gf-billplz.php:461
+msgid "Mark Post as Draft"
+msgstr ""
+
+#: class-gf-billplz.php:462
+msgid "Delete Post"
+msgstr ""
+
+#: class-gf-billplz.php:886
+msgid "Payment Completed"
+msgstr ""
+
+#: class-gf-billplz.php:887
+msgid "Payment Failed"
+msgstr ""
+
+#. translators: %4$s is replaced with payment date
+#: class-gf-billplz.php:1017
+msgid "Payment information was manually updated. Status: %1$s. Amount: %2$s. Transaction ID: %3$s. Date: %4$s"
+msgstr ""

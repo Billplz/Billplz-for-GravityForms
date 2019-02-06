@@ -1,0 +1,248 @@
+# Copyright (C) 2019 Billplz Sdn. Bhd.
+# This file is distributed under the same license as the Billplz for GravityForms plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Billplz for GravityForms 3.8.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/billplz-for-"
+"gravityforms\n"
+"POT-Creation-Date: 2019-02-06T10:54:46+00:00\n"
+"PO-Revision-Date: 2019-02-06 19:23+0800\n"
+"Last-Translator: \n"
+"Language-Team: https://www.billplz.com\n"
+"Language: ms_MY\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.1\n"
+"X-Domain: gravityformsbillplz\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. Plugin Name of the plugin
+msgid "Billplz for GravityForms"
+msgstr "Billplz untuk GravityForms"
+
+#. Plugin URI of the plugin
+msgid "https://wordpress.org/plugins-wp/billplz-for-gravityforms/"
+msgstr "https://wordpress.org/plugins-wp/billplz-for-gravityforms/"
+
+#. Description of the plugin
+msgid ""
+"Billplz Payment Gateway | <a href=\"https://www.billplz.com/enterprise/signup"
+"\" target=\"_blank\">Sign up Now</a>."
+msgstr ""
+"Billplz Payment Gateway | <a href=\"https://www.billplz.com/enterprise/signup"
+"\" target=\"_blank\">Daftar Sekarang</a>."
+
+#. Author of the plugin
+msgid "Billplz Sdn. Bhd."
+msgstr "Billplz Sdn. Bhd."
+
+#. Author URI of the plugin
+msgid "https://www.billplz.com"
+msgstr "https://www.billplz.com"
+
+#: class-gf-billplz.php:60
+msgid ""
+"Billplz for GravityForms requires X Signature to be enabled on your Billplz "
+"account. Follow the following steps to confirm X Signature is enabled."
+msgstr ""
+"Billplz untuk GravityForms memerlukan X Signature diaktifkan pada akaun "
+"Billplz. Ikuti langkah berikut untuk mengesahkan X Signature telah "
+"diaktifkan."
+
+#. translators: %2$s is replaced with "</a>"
+#: class-gf-billplz.php:66
+msgid "Navigate to your %1$sBillplz Account Settings%2$s page."
+msgstr "Kemudi ke halaman %1$stetapan akaun Billplz%2$s."
+
+#. translators: %2$s is replaced with "</strong>"
+#: class-gf-billplz.php:70
+msgid ""
+"You will see your current %1$sXSignature Payment Completion%2$s settings "
+"along with a button to Save & Copy XSignature Key. Just tick that option and "
+"click Save & Copy XSignature Key. Then, you are ready to go!"
+msgstr ""
+"Anda akan Nampak tetapan asal %1$sXSignature Payment Completion%2$s bersama "
+"dengan butang Save & Copy XSignature Key. Hanya tandakan pada kotak "
+"berkenaan dan klik Save & Copy XSignature Key. Kemudian, anda telah bersedia!"
+
+#: class-gf-billplz.php:81
+msgid "Billplz XSignature Setting"
+msgstr "Tetapan Billplz XSignature"
+
+#: class-gf-billplz.php:83
+msgid ""
+"Confirm that you have configured your Billplz account to enable XSignature "
+"Payment Completion"
+msgstr ""
+"Sahkan bahawa anda telah mengaktifkan XSignature Payment Completion pada "
+"akaun Billplz anda"
+
+#: class-gf-billplz.php:88
+msgid "Settings have been updated."
+msgstr "Tetapan telah dikemaskini"
+
+#. translators: %2$s is replaced with "</a>"
+#: class-gf-billplz.php:102
+msgid "To get started, please configure your %1$sBillplz Account Settings%2$s!"
+msgstr "Untuk bermula, sila tetapkan %1$stetapan akaun Billplz%2$s!"
+
+#: class-gf-billplz.php:115
+msgid "API Secret Key "
+msgstr "API Secret Key "
+
+#: class-gf-billplz.php:119
+msgid "Billplz API Secret Key"
+msgstr "Billplz API Secret Key"
+
+#: class-gf-billplz.php:119 class-gf-billplz.php:135
+msgid ""
+"It can be from Production or Staging. It can be retrieved from Billplz "
+"Account Settings page."
+msgstr ""
+"Boleh ditetapkan samada dari Production ataupun Staging. Dapatkannya pada "
+"halaman tetapan akaun Billplz."
+
+#: class-gf-billplz.php:123
+msgid "Collection ID "
+msgstr "Collection ID "
+
+#: class-gf-billplz.php:127
+msgid "Billplz Collection ID"
+msgstr "Billplz Collection ID"
+
+#: class-gf-billplz.php:127
+msgid ""
+"Enter your chosen specific Billing Collection ID. It can be retrieved from "
+"Billplz Billing page."
+msgstr ""
+"Masukkan Billing Collection ID. Ianya boleh diperoleh pada halaman Billing "
+"di Billplz."
+
+#: class-gf-billplz.php:131
+msgid "X Signature Key "
+msgstr "X Signature Key "
+
+#: class-gf-billplz.php:135
+msgid "Billplz X Signature Key"
+msgstr "Billplz X Signature Key"
+
+#: class-gf-billplz.php:138
+msgid "Bill Description"
+msgstr "Keterangan Bill"
+
+#: class-gf-billplz.php:141
+msgid "Billplz Bills Description"
+msgstr "Keterangan Bill Billplz"
+
+#: class-gf-billplz.php:141
+msgid "Enter your description here. It will displayed on Bill page."
+msgstr "Tetapkan keterangan disini. Ianya akan ditunjukkan pada halaman Bill."
+
+#: class-gf-billplz.php:160 class-gf-billplz.php:164
+msgid "Cancel URL"
+msgstr "URL Pembatalan"
+
+#: class-gf-billplz.php:164
+msgid ""
+"Enter the URL the user should be sent to should they cancel before "
+"completing their payment."
+msgstr ""
+"Tetapakan URL apabila pengguna memilih untuk tidak meneruskan pembayaran."
+
+#: class-gf-billplz.php:171 class-gf-billplz.php:173
+msgid "Notifications"
+msgstr "Pemakluman"
+
+#: class-gf-billplz.php:173
+msgid ""
+"Enable this option if you would like to only send out this form's "
+"notifications for the 'Form is submitted' event after payment has been "
+"received. Leaving this option disabled will send these notifications "
+"immediately after the form is submitted. Notifications which are configured "
+"for other events will not be affected by this option."
+msgstr ""
+"Aktifkan pilihan ini jika anda mahu pemakluman dihantar apabila event 'Form "
+"is submitted'  diterima. Membiarkan pilihan ini tidak diaktifkan menyebabkan "
+"pemakluman dihantar sejurus selepas borang dihantar. Pemakluman yang telah "
+"ditetapkan untuk event yang lain tidak berkaitan untuk tetapan ini."
+
+#: class-gf-billplz.php:183 class-gf-billplz.php:185
+msgid "Posts"
+msgstr "Kiriman"
+
+#: class-gf-billplz.php:185
+msgid ""
+"Enable this option if you would like to only create the post after payment "
+"has been received."
+msgstr ""
+"Aktifkan pilihan ini jika anda mahu kiriman dicipta hanya apabila bayaran "
+"telah diterima."
+
+#: class-gf-billplz.php:187
+msgid "Create post only when payment is received."
+msgstr "Cipta kiriman hanya apabila bayaran diterima."
+
+#: class-gf-billplz.php:285
+msgid "Reference 2"
+msgstr "Reference 2"
+
+#: class-gf-billplz.php:288
+msgid "Reference 2 Label"
+msgstr "Label Reference 2"
+
+#: class-gf-billplz.php:291
+msgid "Reference 1"
+msgstr "Reference 1"
+
+#: class-gf-billplz.php:294
+msgid "Reference 1 Label"
+msgstr "Label Reference 1"
+
+#: class-gf-billplz.php:297
+msgid "Mobile Phone Number"
+msgstr "Nombor Telefon Bimbit"
+
+#: class-gf-billplz.php:300
+msgid "Email"
+msgstr "Emel"
+
+#: class-gf-billplz.php:303
+msgid "Name"
+msgstr "Nama"
+
+#: class-gf-billplz.php:322
+msgid "Billplz Field"
+msgstr "Bidang Billplz"
+
+#: class-gf-billplz.php:379
+msgid ""
+"Send notifications for the 'Form is submitted' event only when payment is "
+"received."
+msgstr "Hantar makluman 'Form is submitted\" hanya apabila bayaran diterima."
+
+#: class-gf-billplz.php:461
+msgid "Mark Post as Draft"
+msgstr "Tandakan kiriman sebagai Draf"
+
+#: class-gf-billplz.php:462
+msgid "Delete Post"
+msgstr "Padam kiriman"
+
+#: class-gf-billplz.php:886
+msgid "Payment Completed"
+msgstr "Bayaran Diterima"
+
+#: class-gf-billplz.php:887
+msgid "Payment Failed"
+msgstr "Bayaran Tidak Berjaya"
+
+#. translators: %4$s is replaced with payment date
+#: class-gf-billplz.php:1017
+msgid ""
+"Payment information was manually updated. Status: %1$s. Amount: %2$s. "
+"Transaction ID: %3$s. Date: %4$s"
+msgstr ""
+"Maklumat bayran telah dikemaskini secara manual. Status: %1$s. Amaun: %2$s. "
+"ID Transaksi: %3$s. Date: %4$s"
