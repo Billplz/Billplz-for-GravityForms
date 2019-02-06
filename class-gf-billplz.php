@@ -1001,7 +1001,7 @@ class GFBillplz extends GFPaymentAddOn
         }
         //update lead, add a note
         GFAPI::update_entry($entry);
-        GFFormsModel::add_note($entry['id'], $user_id, $user_name, sprintf(esc_html__('Payment information was manually updated. Status: %s. Amount: %s. Transaction ID: %s. Date: %s', 'gravityformspaypal'), $entry['payment_status'], GFCommon::to_money($entry['payment_amount'], $entry['currency']), $payment_transaction, $entry['payment_date']));
+        GFFormsModel::add_note($entry['id'], $user_id, $user_name, sprintf(esc_html__('Payment information was manually updated. Status: %s. Amount: %s. Transaction ID: %s. Date: %s', 'gravityformsbillplz'), $entry['payment_status'], GFCommon::to_money($entry['payment_amount'], $entry['currency']), $payment_transaction, $entry['payment_date']));
     }
 
     public function fulfill_order(&$entry, $transaction_id, $amount, $feed = null)
@@ -1024,9 +1024,9 @@ class GFBillplz extends GFPaymentAddOn
             GFCommon::send_notifications($notifications, $form, $entry, true, 'form_submission');
         }
 
-        do_action('gform_paypal_fulfillment', $entry, $feed, $transaction_id, $amount);
-        if (has_filter('gform_paypal_fulfillment')) {
-            $this->log_debug(__METHOD__ . '(): Executing functions hooked to gform_paypal_fulfillment.');
+        do_action('gform_billplz_fulfillment', $entry, $feed, $transaction_id, $amount);
+        if (has_filter('gform_billplz_fulfillment')) {
+            $this->log_debug(__METHOD__ . '(): Executing functions hooked to gform_billplz_fulfillment.');
         }
     }
 
