@@ -54,13 +54,20 @@ class GFBillplz extends GFPaymentAddOn
     
     public function plugin_settings_fields()
     {
+
         $description = '
             <p style="text-align: left;">' .
-            esc_html__('Billplz for Gravity Forms requires X Signature to be enabled on your Billplz account. Follow the following steps to confirm X Signature is enabled.', 'gravityformsbillplz') .
+            esc_html__('Billplz for GravityForms requires X Signature to be enabled on your Billplz account. Follow the following steps to confirm X Signature is enabled.', 'gravityformsbillplz') .
             '</p>
             <ul>
-                <li>' . sprintf(esc_html__('Navigate to your %sBillplz Account Settings%s page.', 'gravityformsbillplz'), '<a href="https://www.billplz.com/enterprise/setting" target="_blank">', '</a>') . '</li>' .
-                '<li>' . sprintf(esc_html__('You will see your current %sXSignature Payment Completion%s settings along with a button to Save & Copy XSignature Key. Just tick that option and click Save & Copy XSignature Key. Then, you are ready to go!', 'gravityformsbillplz'), '<strong>', '</strong>') . '</li>' .
+                <li>' .
+                    // translators: %1$s is replaced with "<a>"
+                    // translators: %2$s is replaced with "</a>"
+                sprintf(esc_html__('Navigate to your %1$sBillplz Account Settings%2$s page.', 'gravityformsbillplz'), '<a href="https://www.billplz.com/enterprise/setting" target="_blank">', '</a>') . '</li>' .
+                '<li>' .
+                    // translators: %1$s is replaced with "<strong>"
+                    // translators: %2$s is replaced with "</strong>"
+                sprintf(esc_html__('You will see your current %1$sXSignature Payment Completion%2$s settings along with a button to Save & Copy XSignature Key. Just tick that option and click Save & Copy XSignature Key. Then, you are ready to go!', 'gravityformsbillplz'), '<strong>', '</strong>') . '</li>' .
             '</ul>
                 <br/>';
 
@@ -90,7 +97,9 @@ class GFBillplz extends GFPaymentAddOn
     {
         $settings = $this->get_plugin_settings();
         if (! rgar($settings, 'gf_billplz_x_signature_configured')) {
-            return sprintf(esc_html__('To get started, please configure your %sBillplz Account Settings%s!', 'gravityformsbillplz'), '<a href="' . admin_url('admin.php?page=gf_settings&subview=' . $this->_slug) . '">', '</a>');
+            // translators: %1$s is replaced with "<a>"
+            // translators: %2$s is replaced with "</a>"
+            return sprintf(esc_html__('To get started, please configure your %1$sBillplz Account Settings%2$s!', 'gravityformsbillplz'), '<a href="' . admin_url('admin.php?page=gf_settings&subview=' . $this->_slug) . '">', '</a>');
         } else {
             return parent::feed_list_no_item_message();
         }
@@ -1001,7 +1010,11 @@ class GFBillplz extends GFPaymentAddOn
         }
         //update lead, add a note
         GFAPI::update_entry($entry);
-        GFFormsModel::add_note($entry['id'], $user_id, $user_name, sprintf(esc_html__('Payment information was manually updated. Status: %s. Amount: %s. Transaction ID: %s. Date: %s', 'gravityformsbillplz'), $entry['payment_status'], GFCommon::to_money($entry['payment_amount'], $entry['currency']), $payment_transaction, $entry['payment_date']));
+        // translators: %1$s is replaced with payment status
+        // translators: %2$s is replaced with payment amount
+        // translators: %3$s is replaced with currency
+        // translators: %4$s is replaced with payment date
+        GFFormsModel::add_note($entry['id'], $user_id, $user_name, sprintf(esc_html__('Payment information was manually updated. Status: %1$s. Amount: %2$s. Transaction ID: %3$s. Date: %4$s', 'gravityformsbillplz'), $entry['payment_status'], GFCommon::to_money($entry['payment_amount'], $entry['currency']), $payment_transaction, $entry['payment_date']));
     }
 
     public function fulfill_order(&$entry, $transaction_id, $amount, $feed = null)
