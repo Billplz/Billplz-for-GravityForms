@@ -20,7 +20,7 @@ Billplz has no setup and monthly fees. Only pay as per payment received at RM1.5
 
 = How to register? =
 
-[Register now](https://www.billplz.com/enterprise/signup) and submit the completed form to be registered and verified. The verification will be done automatically in 3 working days.
+[Apply now](https://www.billplz.com/enterprise/signup) and submit the completed form to be registered and verified. The verification will be done automatically in 3 working days.
 
 = Settlement policy =
 
@@ -29,6 +29,10 @@ Total daily collection (minimum RM0.01) shall be deposited automatically into th
 == Screenshots ==
 * Screenshot 1: Setting for API Secret Key, Collection ID and X Signature Key.
 * Screenshot 2: Setting for Payment Amount field and Billplz field.
+* Screenshot 3: Sample form integrated with Billplz.
+* Screenshot 4: Sample Billplz Payment Page.
+* Screenshot 5: Sample return response.
+* Screenshot 6: Sample entry on administration side.
 
 == Changelog ==
 
@@ -62,7 +66,9 @@ You can the Collection ID at your Billplz >> Billing. [Get it here](https://www.
 Known issues: Name with (Full) option will return null.
 
 == Links ==
-[Sign Up](http://billplz.com/join/lz7pmrxa45tiihvqdydxqq/) for Billplz account to accept payment using Billplz now!
+Join our Facebook developer community at [Billplz Dev Jam](https://fb.com/groups/billplzdevjam/).
+
+Sign up to [Billplz Staging](https://billplz-staging.herokuapp.com) for free unlimited testing.
 
 == Upgrade Notice ==
 
