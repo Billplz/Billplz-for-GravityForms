@@ -55,11 +55,11 @@ Set the tag {entry:transaction_id} at the event Payment Completion notification.
 
 = Where can I get API Secret & X Signature Key ? =
 
-You can the API Secret Key at your Billplz Account Settings. [Get it here](https://www.billplz.com/enterprise/setting)
+You can get the API Secret Key at your Billplz Account Settings. [Get it here](https://www.billplz.com/enterprise/setting)
 
 = Where can I get Collection ID? =
 
-You can the Collection ID at your Billplz >> Billing. [Get it here](https://www.billplz.com/enterprise/billing)
+You can get the Collection ID at your Billplz >> Billing. [Get it here](https://www.billplz.com/enterprise/billing)
 
 = Troubleshooting =
 
