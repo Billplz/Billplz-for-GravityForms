@@ -2,7 +2,7 @@
 Contributors: wanzulnet
 Tags: billplz,paymentgateway,fpx,malaysia
 Tested up to: 5.0.3
-Stable tag: 3.8.0
+Stable tag: 3.8.1
 Requires at least: 4.6
 License: GPL-3.0-or-later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -35,6 +35,9 @@ Total daily collection (minimum RM0.01) shall be deposited automatically into th
 * Screenshot 6: Sample entry on administration side.
 
 == Changelog ==
+
+= 3.8.1 =
+* Ensure bill id matches with entry before processing.
 
 = 3.8.0 =
 * Based on PayPal Standard Addon 3.1

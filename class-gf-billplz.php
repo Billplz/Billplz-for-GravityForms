@@ -750,6 +750,13 @@ class GFBillplz extends GFPaymentAddOn
         }
         
         $this->log_debug(__METHOD__ . '(): Entry has been found => ' . print_r($entry, true));
+        
+        $bill_id = gform_get_meta($entry['id'], 'bill_id');
+        
+        if (!$bill_id) {
+            $this->log_debug(__METHOD__ . '(): Bill ID not found => ' . print_r($entry, true));
+            return false;
+        }
       
         if ($entry['status'] == 'spam') {
             $this->log_error(__METHOD__ . '(): Entry is marked as spam. Aborting.');
@@ -765,6 +772,11 @@ class GFBillplz extends GFPaymentAddOn
             status_header(403);
             $this->log_debug(__METHOD__ . '(): Failed X Signature Validation.');
             exit('Failed X Signature Validation');
+        }
+        
+        if ($bill_id !== $data['id']) {
+            $this->log_debug(__METHOD__ . '(): Bill ID not match with entry => ' . print_r($entry, true));
+            return false;
         }
 
         if ($data['type'] === 'redirect') {

@@ -3,7 +3,7 @@
 Plugin Name: Billplz for GravityForms
 Plugin URI: https://wordpress.org/plugins-wp/billplz-for-gravityforms/
 Description: Billplz Payment Gateway | <a href="https://www.billplz.com/enterprise/signup" target="_blank">Sign up Now</a>.
-Version: 3.8.0
+Version: 3.8.1
 Author: Billplz Sdn. Bhd.
 Author URI: https://www.billplz.com
 License: GPL-2.0+
