@@ -6,7 +6,7 @@ Accept payment using Billplz for GravityForms by using this plugin.
 
 1. Any GravityForms Installation (Free/Basic/Elite/Pro License)
 2. At least one (1) active form
-3. At least PHP Version 5.6 with support up to 7.2
+3. At least PHP Version 7.0 with support up to 7.4
 
 ## Installation
 
@@ -32,7 +32,7 @@ There 2 ways to Install this plugin:
 
 * Login to WordPress Dashboard
 * Navigate to Forms >> Settings >> Billplz >> Add New
-* Set up API Secret Key, Collection ID and X Signature Key
+* Set up Mode, API Secret Key, Collection ID and X Signature Key
 * Set all relevant option
 
 # Other

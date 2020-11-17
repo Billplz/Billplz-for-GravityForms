@@ -1,15 +1,22 @@
 <?php
 
+defined('ABSPATH') || exit;
+
 class BillplzGravityFormsAPI
 {
     private $connect;
+    private static $instance;
 
-    public function __construct($connect)
-    {
-        $this->connect = $connect;
+    public static function get_instance() {
+      if (null === self::$instance) {
+        self::$instance = new self();
+      }
+      return self::$instance;
     }
 
-    public function setConnect($connect)
+    private function __clone() {}
+
+    public function set_connect($connect)
     {
         $this->connect = $connect;
     }
@@ -22,7 +29,7 @@ class BillplzGravityFormsAPI
     {
         if ($response[0] === 401 && $this->connect->detect_mode) {
             $this->connect->detect_mode = false;
-            $this->connect->setMode(false);
+            $this->connect->setStaging(true);
             if (!empty($extra)) {
                 return $this->{$method_name}($parameter, $optional, $extra);
             } elseif (!empty($optional)) {
@@ -177,7 +184,7 @@ class BillplzGravityFormsAPI
             $parameter['mobile'] = preg_replace('/[^0-9]/', '', $parameter['mobile']);
 
             /* Add '6' if applicable */
-            $parameter['mobile'] = $parameter['mobile'][0] === '0' ? '6'.$parameter['mobile'] : $parameter['mobile'];
+            $parameter['mobile'] = $parameter['mobile'][0] === '0' ? '6' . $parameter['mobile'] : $parameter['mobile'];
 
             /* If the number doesn't have valid formatting, reject it */
             /* The ONLY valid format '<1 Number>' + <10 Numbers> or '<1 Number>' + <11 Numbers> */
@@ -205,8 +212,8 @@ class BillplzGravityFormsAPI
         /* + In-case the collection id is an empty */
         if ($collection[0] === 404 || $collection[0] === 401 || empty($parameter['collection_id'])) {
             /* Get All Active & Inactive Collection List */
-            $collectionIndexActive = $this->toArray($this->getCollectionIndex(array('page'=>'1', 'status'=>'active')));
-            $collectionIndexInactive = $this->toArray($this->getCollectionIndex(array('page'=>'1', 'status'=>'inactive')));
+            $collectionIndexActive = $this->toArray($this->getCollectionIndex(array('page' => '1', 'status' => 'active')));
+            $collectionIndexInactive = $this->toArray($this->getCollectionIndex(array('page' => '1', 'status' => 'inactive')));
 
             /* If Active Collection not available but Inactive Collection is available */
             if (empty($collectionIndexActive[1]['collections']) && !empty($collectionIndexInactive[1]['collections'])) {
@@ -259,7 +266,7 @@ class BillplzGravityFormsAPI
         return $response;
     }
 
-    public function getTransactionIndex($id, $parameter = array('page'=>'1'))
+    public function getTransactionIndex($id, $parameter = array('page' => '1'))
     {
         $response = $this->connect->getTransactionIndex($id, $parameter);
         if ($detect_mode = $this->detectMode(__FUNCTION__, $response, $id, $parameter)) {
@@ -286,7 +293,7 @@ class BillplzGravityFormsAPI
         return $response;
     }
 
-    public function getBankAccountIndex($parameter = array('account_numbers'=>array('0','1')))
+    public function getBankAccountIndex($parameter = array('account_numbers' => array('0', '1')))
     {
         $response = $this->connect->getBankAccountIndex($parameter);
         if ($detect_mode = $this->detectMode(__FUNCTION__, $response, $parameter)) {
@@ -316,7 +323,7 @@ class BillplzGravityFormsAPI
     public function bypassBillplzPage($bill)
     {
         $bills = \json_decode($bill, true);
-        if ($bills['reference_1_label']!=='Bank Code') {
+        if ($bills['reference_1_label'] !== 'Bank Code') {
             return \json_encode($bill);
         }
 
@@ -337,7 +344,7 @@ class BillplzGravityFormsAPI
         }
 
         if ($found) {
-            $bills['url'].='?auto_submit=true';
+            $bills['url'] .= '?auto_submit=true';
         }
 
         return json_encode($bills);
@@ -352,8 +359,28 @@ class BillplzGravityFormsAPI
         return $response;
     }
 
+    public function getPaymentGateways()
+    {
+        $response = $this->connect->getPaymentGateways();
+        if ($detect_mode = $this->detectMode(__FUNCTION__, $response)) {
+            return $detect_mode;
+        }
+        return $response;
+    }
+
+    public function getWebhookRank()
+    {
+        $response = $this->connect->getWebhookRank();
+        if ($detect_mode = $this->detectMode(__FUNCTION__, $response)) {
+            return $detect_mode;
+        }
+        return $response;
+    }
+
     public function toArray($json)
     {
         return $this->connect->toArray($json);
     }
 }
+
+$GLOBALS['gfw_api'] = BillplzGravityFormsAPI::get_instance();

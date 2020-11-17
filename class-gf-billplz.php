@@ -1,5 +1,7 @@
 <?php
 
+defined( 'ABSPATH' ) || die();
+
 add_action('wp', array( 'GFBillplz', 'maybe_thankyou_page' ), 5);
 
 GFForms::include_payment_addon_framework();
@@ -7,9 +9,8 @@ GFForms::include_payment_addon_framework();
 class GFBillplz extends GFPaymentAddOn
 {
     protected $_version = GF_BILLPLZ_VERSION;
-    protected $_min_gravityforms_version = '1.9.12';
+    protected $_min_gravityforms_version = '1.9.3';
     protected $_slug = 'gravityformsbillplz';
-    protected $_path = 'gravityformsbillplz/billplz.php';
     protected $_full_path = __FILE__;
     protected $_url = 'https://www.billplz.com';
     protected $_title = 'Billplz for GravityForms';
@@ -42,6 +43,10 @@ class GFBillplz extends GFPaymentAddOn
     {
     } /* do nothing */
 
+    public function get_path() {
+        return basename(dirname(__FILE__)) . '/billplz.php';
+    }
+
     public function init_frontend()
     {
         parent::init_frontend();
@@ -50,73 +55,39 @@ class GFBillplz extends GFPaymentAddOn
         add_filter('gform_disable_notification', array( $this, 'delay_notification' ), 10, 4);
     }
 
+    public function get_payment_field( $feed ) {
+        return rgars( $feed, 'meta/paymentAmount', 'form_total' );
+    }
+
     //----- SETTINGS PAGES ----------//
     
-    public function plugin_settings_fields()
-    {
-
-        $description = '
-            <p style="text-align: left;">' .
-            esc_html__('Billplz for GravityForms requires X Signature to be enabled on your Billplz account. Follow the following steps to confirm X Signature is enabled.', 'gravityformsbillplz') .
-            '</p>
-            <ul>
-                <li>' .
-                    // translators: %1$s is replaced with "<a>"
-                    // translators: %2$s is replaced with "</a>"
-                sprintf(esc_html__('Navigate to your %1$sBillplz Account Settings%2$s page.', 'gravityformsbillplz'), '<a href="https://www.billplz.com/enterprise/setting" target="_blank">', '</a>') . '</li>' .
-                '<li>' .
-                    // translators: %1$s is replaced with "<strong>"
-                    // translators: %2$s is replaced with "</strong>"
-                sprintf(esc_html__('You will see your current %1$sXSignature Payment Completion%2$s settings along with a button to Save & Copy XSignature Key. Just tick that option and click Save & Copy XSignature Key. Then, you are ready to go!', 'gravityformsbillplz'), '<strong>', '</strong>') . '</li>' .
-            '</ul>
-                <br/>';
-
-        return array(
-            array(
-                'title'       => '',
-                'description' => $description,
-                'fields'      => array(
-                    array(
-                        'name'    => 'gf_billplz_x_signature_configured',
-                        'label'   => esc_html__('Billplz XSignature Setting', 'gravityformsbillplz'),
-                        'type'    => 'checkbox',
-                        'choices' => array( array( 'label' => esc_html__('Confirm that you have configured your Billplz account to enable XSignature Payment Completion', 'gravityformsbillplz'), 'name' => 'gf_billplz_x_signature_configured' ) )
-                    ),
-                    array(
-                        'type' => 'save',
-                        'messages' => array(
-                                            'success' => esc_html__('Settings have been updated.', 'gravityformsbillplz')
-                                            ),
-                    ),
-                ),
-            ),
-        );
-    }
-
-    public function feed_list_no_item_message()
-    {
-        $settings = $this->get_plugin_settings();
-        if (! rgar($settings, 'gf_billplz_x_signature_configured')) {
-            // translators: %1$s is replaced with "<a>"
-            // translators: %2$s is replaced with "</a>"
-            return sprintf(esc_html__('To get started, please configure your %1$sBillplz Account Settings%2$s!', 'gravityformsbillplz'), '<a href="' . admin_url('admin.php?page=gf_settings&subview=' . $this->_slug) . '">', '</a>');
-        } else {
-            return parent::feed_list_no_item_message();
-        }
-    }
-
     public function feed_settings_fields()
     {
         $default_settings = parent::feed_settings_fields();
 
         $fields = array(
             array(
+                'name'          => 'mode',
+                'label'         => esc_html__( 'Mode', 'gravityformsbillplz' ),
+                'type'          => 'radio',
+                'required'      => true,
+                'choices'       => array(
+                    array( 'id' => 'gf_billplz_mode_production', 'label' => esc_html__( 'Production', 'gravityformsbillplz' ), 'value' => 'production' ),
+                    array( 'id' => 'gf_billplz_mode_test', 'label' => esc_html__( 'Sandbox', 'gravityformsbillplz' ), 'value' => 'sandbox' ),
+
+                ),
+
+                'horizontal'    => true,
+                'default_value' => 'production',
+                'tooltip'       => '<h6>' . esc_html__( 'Mode', 'gravityformsbillplz' ) . '</h6>' . esc_html__( 'Select Production to receive real payments. Select Sandbox for testing purposes when using the Billplz sandbox.', 'gravityformsbillplz' )
+            ),
+            array(
                 'name' => 'api_key',
                 'label' => esc_html__('API Secret Key ', 'gravityformsbillplz'),
                 'type' => 'text',
                 'class' => 'medium',
                 'required' => true,
-                'tooltip' => '<h6>' . esc_html__('Billplz API Secret Key', 'gravityformsbillplz') . '</h6>' . esc_html__('It can be from Production or Staging. It can be retrieved from Billplz Account Settings page.', 'gravityformsbillplz')
+                'tooltip' => '<h6>' . esc_html__('Billplz API Secret Key', 'gravityformsbillplz') . '</h6>' . esc_html__('Enter the API Secret Key where payment should be received.', 'gravityformsbillplz')
             ),
             array(
                 'name' => 'collection_id',
@@ -132,7 +103,7 @@ class GFBillplz extends GFPaymentAddOn
                 'type' => 'text',
                 'class' => 'medium',
                 'required' => true,
-                'tooltip' => '<h6>' . esc_html__('Billplz X Signature Key', 'gravityformsbillplz') . '</h6>' . esc_html__('It can be from Production or Staging. It can be retrieved from Billplz Account Settings page.', 'gravityformsbillplz')
+                'tooltip' => '<h6>' . esc_html__('Billplz X Signature Key', 'gravityformsbillplz') . '</h6>' . esc_html__('Enter the X Signature Key where payment should be received.', 'gravityformsbillplz')
             ),
             array(
                 'label' => esc_html__('Bill Description', 'gravityformsbillplz'),
@@ -309,7 +280,7 @@ class GFBillplz extends GFPaymentAddOn
         $default_settings = parent::remove_field('setupFee', $default_settings);
 
         /**
-         * Filter through the feed settings fields for the Paypal feed
+         * Filter through the feed settings fields for the Billplz feed
          *
          * @param array $default_settings The Default feed settings
          * @param array $form The Form object to filter through
@@ -490,10 +461,6 @@ class GFBillplz extends GFPaymentAddOn
         //Saving new fields into old field names to maintain backwards compatibility for delayed payments
         $settings['type'] = $settings['transactionType'];
 
-        if (isset($settings['recurringAmount'])) {
-            $settings['recurring_amount_field'] = $settings['recurringAmount'];
-        }
-
         $feed['meta'] = $settings;
         $feed         = apply_filters('gform_billplz_save_config', $feed);
         
@@ -511,59 +478,21 @@ class GFBillplz extends GFPaymentAddOn
         return parent::save_feed_settings($feed_id, $form_id, $settings);
     }
 
-    public function check_billplz_request()
-    {
-
-        $dismiss = isset($_GET['dismiss_billplz_check']);
-        if ($dismiss) {
-            add_option('dismiss_billplz_check', 1);
-        }
-
-        if (get_option('dismiss_billplz_check')) {
-            return;
-        }
-
-        $can_connect_billplz = get_option('can_connect_billplz');
-        if ($can_connect_billplz == 'yes') {
-            return;
-        }
-
-        if (empty($can_connect_billplz)) {
-            $url = 'https://www.billplz.com/api/v3/bills';
-            $request  = new WP_Http();
-            $response = $request->post($url, array( 'httpversion' => '1.1', 'sslverify' => false, 'ssl' => true, 'timeout' => 20 ));
-
-            if (! is_wp_error($response) && rgar($response, 'body') == '{"error":{"type":"Unauthorized","message":"Access denied"}}') {
-                $can_connect_billplz = 'yes';
-            } else {
-                wp_mail(get_bloginfo('admin_email'), 'Immediate Action Required: SSL certificate is outdated', 'WARNING: Your web server does not currently support the SHA-2 SSL Certificate standard required by Billplz. Please contact your web host to resolve this issue as soon as possible.');
-                $can_connect_billplz = 'no';
-            }
-
-            update_option('can_connect_billplz', $can_connect_billplz);
-        }
-
-        if ($can_connect_billplz == 'no') {
-            //display message
-            echo '<div class="error"> <p><strong>WARNING:</strong> Your web server does not currently support the SHA-2 SSL Certificate standard required by Billplz. Please contact your web host to resolve this issue as soon as possible. <a href="' . add_query_arg(array( 'dismiss_billplz_check' => 1 )) . '">Dismiss</a></p></div>';
-        }
-    }
-
     //------ SENDING TO BILLPLZ -----------//
     
     public function redirect_url($feed, $submission_data, $form, $entry)
     {
-        //Don't process redirect url if request is a Billplz redirect
+        // Don't process redirect url if request is a Billplz redirect
         if (!rgempty('billplz', $_GET)) {
             return false;
         }
 
-        //Don't process redirect url if request is a Billplz callback
+        // Don't process redirect url if request is a Billplz callback
         if (!rgempty('url', $_POST)) {
             return false;
         }
 
-        //updating lead's payment_status to Processing
+        // Update lead's payment_status to Processing
         GFAPI::update_entry_property($entry['id'], 'payment_status', 'Processing');
 
         $feed_meta = $feed['meta'];
@@ -620,9 +549,17 @@ class GFBillplz extends GFPaymentAddOn
             'reference_2' => mb_substr($reference_2, 0, 120)
         );
 
-        $connect = new BillplzGravityFormsWPConnect(trim($feed_meta['api_key']));
-        $connect->detectMode();
-        $billplz = new BillplzGravityFormsAPI($connect);
+        if (isset($feed_meta['mode'])){
+          $is_sandbox = $feed_meta['mode'] == 'sandbox';
+        } else {
+          $is_sandbox = false;
+        }
+
+        $connect = BillplzGravityFormsWPConnect::get_instance();
+        $connect->set_api_key(trim($feed_meta['api_key']), $is_sandbox);
+
+        $billplz = BillplzGravityFormsAPI::get_instance();
+        $billplz->set_connect($connect);
 
         list($rheader, $rbody) = $billplz->toArray($billplz->createBill($parameter, $optional));
 
@@ -656,17 +593,7 @@ class GFBillplz extends GFPaymentAddOn
         $url = add_query_arg('gf_billplz_return', base64_encode($ids_query), $pageURL);
 
         $query = 'gf_billplz_return=' . base64_encode($ids_query);
-        /**
-         * Filters Billplz return URL, which is the URL that users will be sent to after completing the payment on Billplz site.
-         * Useful when URL isn't created correctly (could happen on some server configurations using PROXY servers).
-         *
-         * @since 2.4.5
-         *
-         * @param string  $url  The URL to be filtered.
-         * @param int $form_id  The ID of the form being submitted.
-         * @param int $entry_id The ID of the entry that was just created.
-         * @param string $query The query string portion of the URL.
-         */
+
         return apply_filters('gform_billplz_return_url', $url, $form_id, $lead_id, $query);
     }
 
@@ -883,9 +810,6 @@ class GFBillplz extends GFPaymentAddOn
         add_action('gform_payment_transaction_id', array( $this, 'admin_edit_payment_transaction_id' ), 3, 3);
         add_action('gform_payment_amount', array( $this, 'admin_edit_payment_amount' ), 3, 3);
         add_action('gform_after_update_entry', array( $this, 'admin_update_payment' ), 4, 2);
-
-        //checking if webserver is compatible with Billplz SSL certificate
-        add_action('admin_notices', array( $this, 'check_billplz_request' ));
     }
 
     public function supported_notification_events($form)

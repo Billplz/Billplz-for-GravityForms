@@ -1,12 +1,12 @@
 === Billplz for GravityForms ===
 Contributors: wanzulnet
 Tags: billplz
-Tested up to: 5.2
-Stable tag: 3.8.2
+Tested up to: 5.5
+Stable tag: 3.9.0
 Requires at least: 4.6
 License: GPL-3.0-or-later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Requires PHP: 5.6
+Requires PHP: 7.0
 
 Accept payment by using Billplz.
 
@@ -23,6 +23,10 @@ Install this plugin to accept payment using Billplz.
 * Screenshot 6: Sample entry on administration side.
 
 == Changelog ==
+
+= 3.9.0 =
+* Based on PayPal Standard Addon 3.3
+* NEW: Support for Enable Extra Payment Completion Information
 
 = 3.8.2 =
 * Fix payment status not updated when containing single quotes.
@@ -49,11 +53,11 @@ Set the tag {entry:transaction_id} at the event Payment Completion notification.
 
 = Where can I get API Secret & X Signature Key ? =
 
-You can get the API Secret Key at your Billplz Account Settings. [Get it here](https://www.billplz.com/enterprise/setting)
+You can get the API Secret Key at your Billplz Account Settings.
 
 = Where can I get Collection ID? =
 
-You can get the Collection ID at your Billplz >> Billing. [Get it here](https://www.billplz.com/enterprise/billing)
+You can get the Collection ID at your Billplz >> Billing.
 
 = Troubleshooting =
 
