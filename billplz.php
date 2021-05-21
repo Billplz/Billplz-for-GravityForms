@@ -3,7 +3,7 @@
 Plugin Name: Billplz for GravityForms
 Plugin URI: https://wordpress.org/plugins/billplz-for-gravityforms/
 Description: Billplz. Fair payment platform.
-Version: 3.9.0
+Version: 3.9.1
 Author: Billplz Sdn Bhd
 Author URI: https://www.billplz.com
 License: GPL-2.0+
@@ -13,7 +13,7 @@ Domain Path: /languages
 
 defined( 'ABSPATH' ) || die();
 
-define('GF_BILLPLZ_VERSION', '3.9.0');
+define('GF_BILLPLZ_VERSION', '3.9.1');
 
 add_action('gform_loaded', array( 'GF_Billplz_Bootstrap', 'load' ), 5);
 

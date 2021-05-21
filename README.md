@@ -4,7 +4,7 @@ Accept payment using Billplz for GravityForms by using this plugin.
 
 ## Requirements
 
-1. Any GravityForms Installation (Free/Basic/Elite/Pro License)
+1. GravityForms
 2. At least one (1) active form
 3. At least PHP Version 7.0 with support up to 7.4
 

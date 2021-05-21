@@ -2,7 +2,7 @@
 Contributors: wanzulnet
 Tags: billplz
 Tested up to: 5.5
-Stable tag: 3.9.0
+Stable tag: 3.9.1
 Requires at least: 4.6
 License: GPL-3.0-or-later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -23,6 +23,9 @@ Install this plugin to accept payment using Billplz.
 * Screenshot 6: Sample entry on administration side.
 
 == Changelog ==
+
+= 3.9.1 =
+* Based on PayPal Standard Addon 3.5
 
 = 3.9.0 =
 * Based on PayPal Standard Addon 3.3

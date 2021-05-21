@@ -518,7 +518,7 @@ class GFBillplz extends GFPaymentAddOn
             'mobile'=> trim($mobile),
             'name' => trim($name),
             'amount' => strval(rgar($submission_data, 'payment_amount') * 100),
-            'callback_url' => site_url("/?page=gf_billplz&entry_id={$entry['id']}"),
+            'callback_url' => $this->get_callback_url($entry['id']),
             'description' => mb_substr(GFCommon::replace_variables($feed_meta['bill_description'], $form, $entry), 0, 200)
         );
 
@@ -783,11 +783,14 @@ class GFBillplz extends GFPaymentAddOn
 
     public function is_callback_valid()
     {
-        if (rgget('page') != 'gf_billplz') {
-            return false;
-        }
+        return parent::is_callback_valid() || rgget( 'page' ) === 'gf_billplz';
+    }
 
-        return true;
+    public function get_callback_url($entry_id) {
+        return add_query_arg( array(
+            'callback' => $this->_slug,
+            'entry_id' => $entry_id
+        ), home_url( '/', 'https' ) );
     }
 
     //------- AJAX FUNCTIONS ------------------//
