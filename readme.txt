@@ -1,7 +1,7 @@
 === Billplz for GravityForms ===
 Contributors: wanzulnet
 Tags: billplz
-Tested up to: 5.7
+Tested up to: 6.2.2
 Stable tag: 3.9.1
 Requires at least: 4.6
 License: GPL-3.0-or-later

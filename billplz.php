@@ -14,6 +14,8 @@ Domain Path: /languages
 defined( 'ABSPATH' ) || die();
 
 define('GF_BILLPLZ_VERSION', '3.9.1');
+define('GF_BILLPLZ_PLUGIN_FILE',  __FILE__ );
+define('GF_BILLPLZ_PLUGIN_URL', plugin_dir_url(GF_BILLPLZ_PLUGIN_FILE));
 
 add_action('gform_loaded', array( 'GF_Billplz_Bootstrap', 'load' ), 5);
 
