@@ -60,6 +60,11 @@ class GFBillplz extends GFPaymentAddOn
     }
 
     //----- SETTINGS PAGES ----------//
+
+    public function get_menu_icon()
+    {
+        return GF_BILLPLZ_PLUGIN_URL . '/assets/images/billplz-icon.png';
+    }
     
     public function feed_settings_fields()
     {
