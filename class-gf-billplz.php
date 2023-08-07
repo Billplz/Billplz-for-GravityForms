@@ -513,9 +513,9 @@ class GFBillplz extends GFPaymentAddOn
         $int_reference_1 = isset($feed_meta[$b.'reference_1']) ? $feed_meta[$b.'reference_1'] : '';
         $int_reference_2 = isset($feed_meta[$b.'reference_2']) ? $feed_meta[$b.'reference_2'] : '';
 
-        $email = isset($entry[$int_email]) ? $entry[$int_email] : '';
-        $mobile = isset($entry[$int_mobile]) ? $entry[$int_mobile] : '';
-        $name = isset($entry[$int_name]) ? $entry[$int_name] : '';
+        $email = $this->get_field_value( $form, $entry, $int_email );
+        $mobile = $this->get_field_value( $form, $entry, $int_mobile );
+        $name = $this->get_field_value( $form, $entry, $int_name );
 
         $parameter = array(
             'collection_id' => trim($feed_meta['collection_id']),
