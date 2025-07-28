@@ -698,8 +698,10 @@ class GFBillplz extends GFPaymentAddOn
         $feed = $this->get_payment_feed($entry);
         $x_signature = trim($feed['meta']['x_signature_key']);
 
+        $type = isset($_GET['billplz']['x_signature']) ? 'bill_redirect' : 'bill_callback';
+
         try {
-            $data = BillplzGravityFormsWPConnect::getXSignature($x_signature);
+            $data = BillplzGravityFormsWPConnect::getXSignature($x_signature, $type);
         } catch (Exception $e) {
             status_header(403);
             $this->log_debug(__METHOD__ . '(): Failed X Signature Validation.');
@@ -711,7 +713,7 @@ class GFBillplz extends GFPaymentAddOn
             return false;
         }
 
-        if ($data['type'] === 'redirect') {
+        if ($data['type'] === 'bill_redirect') {
             $return_url = gform_get_meta($entry['id'], 'return_url');
             if (!empty($feed['meta']['cancel_url']) && !$data['paid']) {
                 $return_url = $feed['meta']['cancel_url'];
@@ -726,7 +728,7 @@ class GFBillplz extends GFPaymentAddOn
             return false;
         }
 
-        if ($data['type'] === 'callback' && $data['paid']) {
+        if ($data['type'] === 'bill_callback' && $data['paid']) {
             return array(
                 'id' => $data['id'],
                 'transaction_id' => $data['id'],
