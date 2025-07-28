@@ -1,6 +1,6 @@
 <?php
 /**
-Plugin Name: Billplz for GravityForms
+Plugin Name: Billplz for Gravity Forms
 Plugin URI: https://wordpress.org/plugins/billplz-for-gravityforms/
 Description: Billplz. Fair payment platform.
 Version: 3.9.3
