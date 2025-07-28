@@ -24,7 +24,7 @@ Install this plugin to accept payment using Billplz.
 
 == Changelog ==
 
-= 3.9.3 - 2025-07-xx =
+= 3.9.3 - 2025-07-28 =
 * FIXED: X-Signature mismatch caused by special character encoding in the payment callback data (e.g., slash)
 
 = 3.9.2 =
