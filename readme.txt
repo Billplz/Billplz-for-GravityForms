@@ -1,8 +1,8 @@
-=== Billplz for GravityForms ===
+=== Billplz for Gravity Forms ===
 Contributors: wanzulnet
 Tags: billplz
-Tested up to: 6.2.2
-Stable tag: 3.9.2
+Tested up to: 6.8.2
+Stable tag: 3.9.3
 Requires at least: 4.6
 License: GPL-3.0-or-later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -23,6 +23,9 @@ Install this plugin to accept payment using Billplz.
 * Screenshot 6: Sample entry on administration side.
 
 == Changelog ==
+
+= 3.9.3 - 2025-07-28 =
+* FIXED: X-Signature mismatch caused by special character encoding in the payment callback data (e.g., slash)
 
 = 3.9.2 =
 * FIXED: Customer's name does not appear on the Billplz payment page when using the "Name" field in the form settings
@@ -55,7 +58,7 @@ Install this plugin to accept payment using Billplz.
 
 = How to include Bill ID on payment notification? =
 
-Set the tag {entry:transaction_id} at the event Payment Completion notification. You may refer to [GravityForms Merge Tag](https://docs.gravityforms.com/merge-tags/#entry-data) for more information.
+Set the tag {entry:transaction_id} at the event Payment Completion notification. You may refer to [Gravity Forms Merge Tag](https://docs.gravityforms.com/merge-tags/#entry-data) for more information.
 
 = Where can I get API Secret & X Signature Key ? =
 

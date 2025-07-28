@@ -1,10 +1,10 @@
-# Billplz for GravityForms
+# Billplz for Gravity Forms
 
-Accept payment using Billplz for GravityForms by using this plugin.
+Accept payment using Billplz for Gravity Forms by using this plugin.
 
 ## Requirements
 
-1. GravityForms
+1. Gravity Forms
 2. At least one (1) active form
 3. At least PHP Version 7.0 with support up to 7.4
 
@@ -16,7 +16,7 @@ There 2 ways to Install this plugin:
 
 * Login to WordPress Dashboard
 * Navigate to Plugins >> Add New
-* Search "Billplz for GravityForms"
+* Search "Billplz for Gravity Forms"
 * Click Install >> Activate
 
 ### Manual Installation

@@ -51,22 +51,14 @@ class BillplzGravityFormsWPConnect
         }
     }
 
-    public function detectMode()
-    {
-        $this->url = self::PRODUCTION_URL;
-        $this->detect_mode = true;
-        return $this;
-    }
-
     public function getWebhookRank()
     {
         $url = $this->url . 'v4/webhook_rank';
 
-        $wp_remote_data['sslverify'] = false;
         $wp_remote_data['headers'] = $this->header;
         $wp_remote_data['method'] = 'GET';
         $response = \wp_remote_post($url, $wp_remote_data);
-        $header = $response['response']['code'];
+        $header = wp_remote_retrieve_response_code($response);
         $body = \wp_remote_retrieve_body($response);
 
         return array($header, $body);
@@ -76,12 +68,11 @@ class BillplzGravityFormsWPConnect
     {
         $url = $this->url . 'v4/collections?' . http_build_query($parameter);
 
-        $wp_remote_data['sslverify'] = false;
         $wp_remote_data['headers'] = $this->header;
         $wp_remote_data['method'] = 'GET';
 
         $response = \wp_remote_post($url, $wp_remote_data);
-        $header = $response['response']['code'];
+        $header = wp_remote_retrieve_response_code($response);
         $body = \wp_remote_retrieve_body($response);
 
         return array($header, $body);
@@ -110,13 +101,12 @@ class BillplzGravityFormsWPConnect
             }
         }
 
-        $wp_remote_data['sslverify'] = false;
         $wp_remote_data['headers'] = $this->header;
         $wp_remote_data['body'] = $body;
         $wp_remote_data['method'] = 'POST';
 
         $response = \wp_remote_post($url, $wp_remote_data);
-        $header = $response['response']['code'];
+        $header = wp_remote_retrieve_response_code($response);
         $body = \wp_remote_retrieve_body($response);
 
         return array($header, $body);
@@ -151,13 +141,12 @@ class BillplzGravityFormsWPConnect
             $body .= '&' . http_build_query($optional);
         }
 
-        $wp_remote_data['sslverify'] = false;
         $wp_remote_data['headers'] = $this->header;
         $wp_remote_data['body'] = $body;
         $wp_remote_data['method'] = 'POST';
 
         $response = \wp_remote_post($url, $wp_remote_data);
-        $header = $response['response']['code'];
+        $header = wp_remote_retrieve_response_code($response);
         $body = \wp_remote_retrieve_body($response);
 
         return array($header, $body);
@@ -167,12 +156,11 @@ class BillplzGravityFormsWPConnect
     {
         $url = $this->url . 'v4/collections/' . $id;
 
-        $wp_remote_data['sslverify'] = false;
         $wp_remote_data['headers'] = $this->header;
         $wp_remote_data['method'] = 'GET';
 
         $response = \wp_remote_post($url, $wp_remote_data);
-        $header = $response['response']['code'];
+        $header = wp_remote_retrieve_response_code($response);
         $body = \wp_remote_retrieve_body($response);
 
         return array($header, $body);
@@ -182,12 +170,11 @@ class BillplzGravityFormsWPConnect
     {
         $url = $this->url . 'v4/open_collections/' . $id;
 
-        $wp_remote_data['sslverify'] = false;
         $wp_remote_data['headers'] = $this->header;
         $wp_remote_data['method'] = 'GET';
 
         $response = \wp_remote_post($url, $wp_remote_data);
-        $header = $response['response']['code'];
+        $header = wp_remote_retrieve_response_code($response);
         $body = \wp_remote_retrieve_body($response);
 
         return array($header, $body);
@@ -197,12 +184,11 @@ class BillplzGravityFormsWPConnect
     {
         $url = $this->url . 'v4/open_collections?' . http_build_query($parameter);
 
-        $wp_remote_data['sslverify'] = false;
         $wp_remote_data['headers'] = $this->header;
         $wp_remote_data['method'] = 'GET';
 
         $response = \wp_remote_post($url, $wp_remote_data);
-        $header = $response['response']['code'];
+        $header = wp_remote_retrieve_response_code($response);
         $body = \wp_remote_retrieve_body($response);
 
         return array($header, $body);
@@ -214,13 +200,12 @@ class BillplzGravityFormsWPConnect
 
         $data = array('title' => $title);
 
-        $wp_remote_data['sslverify'] = false;
         $wp_remote_data['headers'] = $this->header;
         $wp_remote_data['body'] = http_build_query($data);
         $wp_remote_data['method'] = 'POST';
 
         $response = \wp_remote_post($url, $wp_remote_data);
-        $header = $response['response']['code'];
+        $header = wp_remote_retrieve_response_code($response);
         $body = \wp_remote_retrieve_body($response);
 
         return array($header, $body);
@@ -230,12 +215,11 @@ class BillplzGravityFormsWPConnect
     {
         $url = $this->url . 'v4/mass_payment_instruction_collections/' . $id;
 
-        $wp_remote_data['sslverify'] = false;
         $wp_remote_data['headers'] = $this->header;
         $wp_remote_data['method'] = 'GET';
 
         $response = \wp_remote_post($url, $wp_remote_data);
-        $header = $response['response']['code'];
+        $header = wp_remote_retrieve_response_code($response);
         $body = \wp_remote_retrieve_body($response);
 
         return array($header, $body);
@@ -251,13 +235,12 @@ class BillplzGravityFormsWPConnect
 
         $data = array_merge($parameter, $optional);
 
-        $wp_remote_data['sslverify'] = false;
         $wp_remote_data['headers'] = $this->header;
         $wp_remote_data['body'] = http_build_query($data);
         $wp_remote_data['method'] = 'POST';
 
         $response = \wp_remote_post($url, $wp_remote_data);
-        $header = $response['response']['code'];
+        $header = wp_remote_retrieve_response_code($response);
         $body = \wp_remote_retrieve_body($response);
 
         return array($header, $body);
@@ -267,72 +250,97 @@ class BillplzGravityFormsWPConnect
     {
         $url = $this->url . 'v4/mass_payment_instructions/' . $id;
 
-        $wp_remote_data['sslverify'] = false;
         $wp_remote_data['headers'] = $this->header;
         $wp_remote_data['body'] = http_build_query($data);
         $wp_remote_data['method'] = 'POST';
 
         $response = \wp_remote_post($url, $wp_remote_data);
-        $header = $response['response']['code'];
+        $header = wp_remote_retrieve_response_code($response);
         $body = \wp_remote_retrieve_body($response);
 
         return array($header, $body);
     }
 
-    public static function buildSourceString($data, $prefix = '')
+    public static function deep_map_pairs($data = array())
     {
-        uksort($data, function ($a, $b) {
-            $a_len = strlen($a);
-            $b_len = strlen($b);
-            $result = strncasecmp($a, $b, min($a_len, $b_len));
-            if ($result === 0) {
-                $result = $b_len - $a_len;
-            }
-            return $result;
-        });
-        $processed = [];
-        foreach ($data as $key => $value) {
-            if ($key === 'x_signature') {
-                continue;
-            }
-     
-            if (is_array($value)) {
-                $processed[] = self::buildSourceString($value, $key);
-            } else {
-                $processed[] = $prefix . $key . stripslashes($value);
-            }
+        $a = array();
+ 
+        foreach ($data as $k => $v){
+            if ($k == 'x_signature'){
+            continue;
         }
-        return implode('|', $processed);
+        if (is_array($v) && array_keys($v) !== range(0, count($v) - 1)) {
+            $b = array();
+            $dmp = self::deep_map_pairs($v);
+            $flatted_dmp = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($dmp));
+            foreach ($flatted_dmp as $p){
+                $b[] = $k.$p;
+            }
+            $a[] = $b;
+        } else if (is_array($v)){
+            $b = array();
+            foreach ($v as $c){
+                $b[] = self::deep_map_pairs(array($k => $c));
+            }
+            $a[] = $b;
+        } else {
+            $a[] = $k.$v;
+        }
+      }
+     
+      return $a;
     }
 
-    public static function getXSignature($x_signature_key)
+
+    public static function getXSignature($x_signature_key, $type = '')
     {
         $data = array();
 
-        if (isset($_GET['billplz']['x_signature'])) {
+        if ($type == 'bill_redirect') {
             $keys = array('id', 'paid_at', 'paid', 'transaction_id', 'transaction_status', 'x_signature');
 
             foreach ($keys as $key){
                 if (isset($_GET['billplz'][$key])){
-                    $data['billplz'][$key] = $_GET['billplz'][$key];
+                    $data['billplz'][$key] = sanitize_text_field( stripslashes( $_GET['billplz'][$key] ) );
                 }
             } 
-            $type = 'redirect';
-        } elseif (isset($_POST['x_signature'])) {
+        } elseif ($type == 'bill_callback') {
             $keys = array('amount', 'collection_id', 'due_at', 'email', 'id', 'mobile', 'name', 'paid_amount', 'transaction_id', 'transaction_status', 'paid_at', 'paid', 'state', 'url', 'x_signature');
             foreach ($keys as $key){
                 if (isset($_POST[$key])){
-                    $data[$key] = $_POST[$key];
+                    $data[$key] = sanitize_text_field( stripslashes( $_POST[$key] ) );
                 }
             }
-            $type = 'callback';
+        } elseif ($type == 'payout_callback') {
+            $keys = array('id','mass_payment_instruction_collection_id','bank_code','bank_account_number','identity_number','name','description','email','status','notification','recipient_notification','reference_id','total','paid_at', 'x_signature');
         } else {
             throw new \Exception('X Signature on Payment Completion not activated.');
         }
 
-        $signing = self::buildSourceString($data);
+        if ($type != 'bill_redirect') {
+            foreach ($keys as $key){
+                if (isset($_POST[$key])){
+                    $data[$key] = sanitize_text_field( stripslashes( $_POST[$key] ) );
+                }
+            }
+        }
 
-        if ($type == 'redirect'){
+        $deep_map_pairs = self::deep_map_pairs($data);
+        $flatted_new = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($deep_map_pairs));
+
+        $array_flatted = [];
+        foreach ($flatted_new as $p){
+          $array_flatted[] = $p;
+        }
+
+        $compacted_af = array_filter($array_flatted, function($var){
+           return ($var !== NULL && $var !== FALSE && $var !== "");
+        });
+
+        sort($compacted_af, SORT_REGULAR | SORT_FLAG_CASE);
+        $signing = implode('|', $compacted_af);
+
+        if ($type == 'bill_redirect'){
             $data = $data['billplz'];
         }
 
@@ -343,7 +351,7 @@ class BillplzGravityFormsWPConnect
 
         $signed = hash_hmac('sha256', $signing, $x_signature_key);
 
-        if ($data['x_signature'] === $signed) {
+        if (hash_equals($signed, $data['x_signature'])) {
             $data['type'] = $type;
             return $data;
         }
@@ -357,13 +365,12 @@ class BillplzGravityFormsWPConnect
 
         $data = array('title' => $title);
 
-        $wp_remote_data['sslverify'] = false;
         $wp_remote_data['headers'] = $this->header;
         $wp_remote_data['body'] = http_build_query(array());
         $wp_remote_data['method'] = 'POST';
 
         $response = \wp_remote_post($url, $wp_remote_data);
-        $header = $response['response']['code'];
+        $header = wp_remote_retrieve_response_code($response);
         $body = \wp_remote_retrieve_body($response);
 
         return array($header, $body);
@@ -373,19 +380,14 @@ class BillplzGravityFormsWPConnect
     {
         $url = $this->url . 'v3/bills';
 
-        //if (sizeof($parameter) !== sizeof($optional) && !empty($optional)){
-        //    throw new \Exception('Optional parameter size is not match with Required parameter');
-        //}
-
         $data = array_merge($parameter, $optional);
 
-        $wp_remote_data['sslverify'] = false;
         $wp_remote_data['headers'] = $this->header;
         $wp_remote_data['body'] = http_build_query($data);
         $wp_remote_data['method'] = 'POST';
 
         $response = \wp_remote_post($url, $wp_remote_data);
-        $header = $response['response']['code'];
+        $header = wp_remote_retrieve_response_code($response);
         $body = \wp_remote_retrieve_body($response);
 
         return array($header, $body);
@@ -395,12 +397,11 @@ class BillplzGravityFormsWPConnect
     {
         $url = $this->url . 'v3/bills/' . $id;
 
-        $wp_remote_data['sslverify'] = false;
         $wp_remote_data['headers'] = $this->header;
         $wp_remote_data['method'] = 'GET';
 
         $response = \wp_remote_post($url, $wp_remote_data);
-        $header = $response['response']['code'];
+        $header = wp_remote_retrieve_response_code($response);
         $body = \wp_remote_retrieve_body($response);
 
         return array($header, $body);
@@ -410,13 +411,12 @@ class BillplzGravityFormsWPConnect
     {
         $url = $this->url . 'v3/bills/' . $id;
 
-        $wp_remote_data['sslverify'] = false;
         $wp_remote_data['headers'] = $this->header;
         $wp_remote_data['body'] = http_build_query(array());
         $wp_remote_data['method'] = 'DELETE';
 
         $response = \wp_remote_post($url, $wp_remote_data);
-        $header = $response['response']['code'];
+        $header = wp_remote_retrieve_response_code($response);
         $body = \wp_remote_retrieve_body($response);
 
         return array($header, $body);
@@ -426,12 +426,11 @@ class BillplzGravityFormsWPConnect
     {
         $url = $this->url . 'v3/check/bank_account_number/' . $id;
 
-        $wp_remote_data['sslverify'] = false;
         $wp_remote_data['headers'] = $this->header;
         $wp_remote_data['method'] = 'GET';
 
         $response = \wp_remote_post($url, $wp_remote_data);
-        $header = $response['response']['code'];
+        $header = wp_remote_retrieve_response_code($response);
         $body = \wp_remote_retrieve_body($response);
 
         return array($header, $body);
@@ -441,12 +440,11 @@ class BillplzGravityFormsWPConnect
     {
         $url = $this->url . 'v3/collections/' . $id . '/payment_methods';
 
-        $wp_remote_data['sslverify'] = false;
         $wp_remote_data['headers'] = $this->header;
         $wp_remote_data['method'] = 'GET';
 
         $response = \wp_remote_post($url, $wp_remote_data);
-        $header = $response['response']['code'];
+        $header = wp_remote_retrieve_response_code($response);
         $body = \wp_remote_retrieve_body($response);
 
         return array($header, $body);
@@ -456,12 +454,11 @@ class BillplzGravityFormsWPConnect
     {
         $url = $this->url . 'v3/bills/' . $id . '/transactions?' . http_build_query($parameter);
 
-        $wp_remote_data['sslverify'] = false;
         $wp_remote_data['headers'] = $this->header;
         $wp_remote_data['method'] = 'GET';
 
         $response = \wp_remote_post($url, $wp_remote_data);
-        $header = $response['response']['code'];
+        $header = wp_remote_retrieve_response_code($response);
         $body = \wp_remote_retrieve_body($response);
 
         return array($header, $body);
@@ -480,13 +477,12 @@ class BillplzGravityFormsWPConnect
             $body[] = http_build_query($param);
         }
 
-        $wp_remote_data['sslverify'] = false;
         $wp_remote_data['headers'] = $this->header;
         $wp_remote_data['body'] = implode('&', $body);
         $wp_remote_data['method'] = 'PUT';
 
         $response = \wp_remote_post($url, $wp_remote_data);
-        $header = $response['response']['code'];
+        $header = wp_remote_retrieve_response_code($response);
         $body = \wp_remote_retrieve_body($response);
 
         return array($header, $body);
@@ -503,12 +499,11 @@ class BillplzGravityFormsWPConnect
 
         $url = $this->url . 'v3/bank_verification_services?' . $parameter;
 
-        $wp_remote_data['sslverify'] = false;
         $wp_remote_data['headers'] = $this->header;
         $wp_remote_data['method'] = 'GET';
 
         $response = \wp_remote_post($url, $wp_remote_data);
-        $header = $response['response']['code'];
+        $header = wp_remote_retrieve_response_code($response);
         $body = \wp_remote_retrieve_body($response);
 
         return array($header, $body);
@@ -518,12 +513,11 @@ class BillplzGravityFormsWPConnect
     {
         $url = $this->url . 'v3/bank_verification_services/' . $id;
 
-        $wp_remote_data['sslverify'] = false;
         $wp_remote_data['headers'] = $this->header;
         $wp_remote_data['method'] = 'GET';
 
         $response = \wp_remote_post($url, $wp_remote_data);
-        $header = $response['response']['code'];
+        $header = wp_remote_retrieve_response_code($response);
         $body = \wp_remote_retrieve_body($response);
 
         return array($header, $body);
@@ -533,13 +527,12 @@ class BillplzGravityFormsWPConnect
     {
         $url = $this->url . 'v3/bank_verification_services';
 
-        $wp_remote_data['sslverify'] = false;
         $wp_remote_data['headers'] = $this->header;
         $wp_remote_data['body'] = http_build_query($parameter);
         $wp_remote_data['method'] = 'POST';
 
         $response = \wp_remote_post($url, $wp_remote_data);
-        $header = $response['response']['code'];
+        $header = wp_remote_retrieve_response_code($response);
         $body = \wp_remote_retrieve_body($response);
 
         return array($header, $body);
@@ -549,12 +542,11 @@ class BillplzGravityFormsWPConnect
     {
         $url = $this->url . 'v3/fpx_banks';
 
-        $wp_remote_data['sslverify'] = false;
         $wp_remote_data['headers'] = $this->header;
         $wp_remote_data['method'] = 'GET';
 
         $response = \wp_remote_post($url, $wp_remote_data);
-        $header = $response['response']['code'];
+        $header = wp_remote_retrieve_response_code($response);
         $body = \wp_remote_retrieve_body($response);
 
         return array($header, $body);
@@ -564,12 +556,56 @@ class BillplzGravityFormsWPConnect
     {
         $url = $this->url . 'v4/payment_gateways';
 
-        $wp_remote_data['sslverify'] = false;
         $wp_remote_data['headers'] = $this->header;
         $wp_remote_data['method'] = 'GET';
 
         $response = \wp_remote_post($url, $wp_remote_data);
-        $header = $response['response']['code'];
+        $header = wp_remote_retrieve_response_code($response);
+        $body = \wp_remote_retrieve_body($response);
+
+        return array($header, $body);
+    }
+
+    public function getPaymentOrderCollection($id, array $parameter)
+    {
+        $url = $this->url . 'v5/payment_order_collections/' . $id;
+
+        $wp_remote_data['headers'] = $this->header;
+        $wp_remote_data['body'] = $parameter;
+        $wp_remote_data['method'] = 'GET';
+
+        $response = \wp_remote_post($url, $wp_remote_data);
+        $header = wp_remote_retrieve_response_code($response);
+        $body = \wp_remote_retrieve_body($response);
+
+        return array($header, $body);
+    }
+
+    public function getPaymentOrder($id, array $parameter)
+    {
+        $url = $this->url . 'v5/payment_orders/' . $id;
+
+        $wp_remote_data['headers'] = $this->header;
+        $wp_remote_data['body'] = $parameter;
+        $wp_remote_data['method'] = 'GET';
+
+        $response = \wp_remote_post($url, $wp_remote_data);
+        $header = wp_remote_retrieve_response_code($response);
+        $body = \wp_remote_retrieve_body($response);
+
+        return array($header, $body);
+    }
+
+    public function createPaymentOrder($parameter)
+    {
+        $url = $this->url . 'v5/payment_orders';
+
+        $wp_remote_data['headers'] = $this->header;
+        $wp_remote_data['body'] = http_build_query($parameter);
+        $wp_remote_data['method'] = 'POST';
+
+        $response = \wp_remote_post($url, $wp_remote_data);
+        $header = wp_remote_retrieve_response_code($response);
         $body = \wp_remote_retrieve_body($response);
 
         return array($header, $body);
@@ -580,5 +616,5 @@ class BillplzGravityFormsWPConnect
         return array($json[0], \json_decode($json[1], true));
     }
 }
-    
+
 $GLOBALS['gfw_connect'] = BillplzGravityFormsWPConnect::get_instance();
