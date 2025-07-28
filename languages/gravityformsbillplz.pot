@@ -1,8 +1,8 @@
 # Copyright (C) 2019 Billplz Sdn. Bhd.
-# This file is distributed under the same license as the Billplz for GravityForms plugin.
+# This file is distributed under the same license as the Billplz for Gravity Forms plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Billplz for GravityForms 3.8.0\n"
+"Project-Id-Version: Billplz for Gravity Forms 3.8.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/billplz-for-gravityforms\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "X-Domain: gravityformsbillplz\n"
 
 #. Plugin Name of the plugin
-msgid "Billplz for GravityForms"
+msgid "Billplz for Gravity Forms"
 msgstr ""
 
 #. Plugin URI of the plugin
@@ -35,7 +35,7 @@ msgid "https://www.billplz.com"
 msgstr ""
 
 #: class-gf-billplz.php:60
-msgid "Billplz for GravityForms requires X Signature to be enabled on your Billplz account. Follow the following steps to confirm X Signature is enabled."
+msgid "Billplz for Gravity Forms requires X Signature to be enabled on your Billplz account. Follow the following steps to confirm X Signature is enabled."
 msgstr ""
 
 #. translators: %2$s is replaced with "</a>"

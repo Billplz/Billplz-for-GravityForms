@@ -1,4 +1,4 @@
-=== Billplz for GravityForms ===
+=== Billplz for Gravity Forms ===
 Contributors: wanzulnet
 Tags: billplz
 Tested up to: 6.2.2
@@ -58,7 +58,7 @@ Install this plugin to accept payment using Billplz.
 
 = How to include Bill ID on payment notification? =
 
-Set the tag {entry:transaction_id} at the event Payment Completion notification. You may refer to [GravityForms Merge Tag](https://docs.gravityforms.com/merge-tags/#entry-data) for more information.
+Set the tag {entry:transaction_id} at the event Payment Completion notification. You may refer to [Gravity Forms Merge Tag](https://docs.gravityforms.com/merge-tags/#entry-data) for more information.
 
 = Where can I get API Secret & X Signature Key ? =
 

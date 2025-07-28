@@ -13,7 +13,7 @@ class GFBillplz extends GFPaymentAddOn
     protected $_slug = 'gravityformsbillplz';
     protected $_full_path = __FILE__;
     protected $_url = 'https://www.billplz.com';
-    protected $_title = 'Billplz for GravityForms';
+    protected $_title = 'Billplz for Gravity Forms';
     protected $_short_title = 'Billplz';
     protected $_supports_callbacks = true;
 
